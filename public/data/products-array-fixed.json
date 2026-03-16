@@ -1,0 +1,44 @@
+[
+  {
+    "id": 240,
+    "name": "VODKA LIQUID 950 ML",
+    "price": "20,70",
+    "old_price": "",
+    "val_sort": 20.7,
+    "image": "https://sfimportsdf.com.br/wp-content/uploads/2025/11/vodka-liquid-950-ml.jpg",
+    "category": "Vodka",
+    "all_categories": "Todos Produtos, Vodka",
+    "description": "Vodka Liquid First 950 ml. A Liquid é uma vodka com visual moderno e foco no público jovem.",
+    "is_sale": false,
+    "status_tag": "NORMAL",
+    "tags_search": "vodka liquid 950 ml vodka test"
+  },
+  {
+    "id": 241,
+    "name": "VINHO TT RENO CABERNET SAUVIGNON",
+    "price": "26,90",
+    "old_price": "31,10",
+    "val_sort": 26.9,
+    "image": "https://sfimportsdf.com.br/wp-content/uploads/2025/11/vinho-tt-reno-cabernet-sauvignon.jpg",
+    "category": "Vinhos Tintos",
+    "all_categories": "Todos Produtos, Vinhos Tintos",
+    "description": "Vinho TT Reno Cabernet Sauvignon. Excelente tinto chileno.",
+    "is_sale": true,
+    "status_tag": "PROMO",
+    "tags_search": "vinho reno cabernet sauvignon tinto chile test"
+  },
+  {
+    "id": 242,
+    "name": "WHISKY JOHNNIE WALKER RED LABEL 750ML",
+    "price": "89,90",
+    "old_price": "",
+    "val_sort": 89.9,
+    "image": "https://sfimportsdf.com.br/wp-content/uploads/2025/11/whisky-johnnie-walker-red-label.jpg",
+    "category": "Whisky",
+    "all_categories": "Todos Produtos, Whisky",
+    "description": "Whisky Johnnie Walker Red Label. O whisky escocês mais famoso do mundo.",
+    "is_sale": false,
+    "status_tag": "NORMAL",
+    "tags_search": "whisky johnnie walker red label escoces test"
+  }
+]

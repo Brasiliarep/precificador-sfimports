@@ -1,0 +1,19 @@
+[
+  // COLE O ARRAY COMPLETO AQUI
+  // Exemplo:
+  {
+    "id": 240,
+    "name": "VODKA LIQUID 950 ML",
+    "price": "20,70",
+    "old_price": "",
+    "val_sort": 20.7,
+    "image": "https://sfimportsdf.com.br/wp-content/uploads/2025/11/vodka-liquid-950-ml.jpg",
+    "category": "Vodka",
+    "all_categories": "Todos Produtos, Vodka",
+    "description": "Descrição completa aqui...",
+    "is_sale": false,
+    "status_tag": "NORMAL",
+    "tags_search": "tags aqui..."
+  }
+  // ... mais produtos
+]

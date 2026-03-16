@@ -1,0 +1,179 @@
+[
+  {
+    "loja": "GL",
+    "nome": "ESPUMANTE FREIXENET CARTA NEVADA 1,5L",
+    "de": 109.9,
+    "por": 89.9,
+    "status": "amarelo",
+    "matchRating": 0.7450980392156863,
+    "vinculado": {
+      "rowId": "produto-188",
+      "supplierName": "FREIXENET CARTA NEVADA"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "ESPUMANTE CHANDON BRUT 1,5L",
+    "de": 179.9,
+    "por": 139.9,
+    "status": "verde",
+    "matchRating": 0.9047619047619048,
+    "vinculado": {
+      "rowId": "produto-186",
+      "supplierName": "ESPUMANTE CHANDON BRUT"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO LAS PERDICES RED BLEND, MALBEC OU CABERNET SAUVIGNON",
+    "de": 49.9,
+    "por": 34.9,
+    "status": "amarelo",
+    "matchRating": 0.7058823529411765,
+    "vinculado": {
+      "rowId": "produto-305",
+      "supplierName": "VINHO TINTO LAS PERDICES RESERVA CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "Vinho Argentino Felino Malbec",
+    "de": 129.9,
+    "por": 89.9,
+    "status": "amarelo",
+    "matchRating": 0.5652173913043478,
+    "vinculado": {
+      "rowId": "produto-56",
+      "supplierName": "VINHO TINTO ANUBIS MALBEC"
+    }
+  },
+  {
+    "loja": "EP",
+    "nome": "Vinho Francês Rosé Piscine",
+    "de": 74.9,
+    "por": 64.9,
+    "status": "amarelo",
+    "matchRating": 0.6486486486486487,
+    "vinculado": {
+      "rowId": "produto-136",
+      "supplierName": "VINHO ROSE PISCINE"
+    }
+  },
+  {
+    "loja": "EP",
+    "nome": "Vinho Português Tapada do Cunha Tinto",
+    "de": 45.9,
+    "por": 27.99,
+    "status": "amarelo",
+    "matchRating": 0.5818181818181818,
+    "vinculado": {
+      "rowId": "produto-117",
+      "supplierName": "VINHO TINTO PORTUGUES PORTA 6"
+    }
+  },
+  {
+    "loja": "EP",
+    "nome": "Demi Panaché",
+    "de": 29.9,
+    "por": 16.99,
+    "status": "vermelho",
+    "matchRating": 0.3125,
+    "vinculado": {
+      "rowId": "produto-522",
+      "supplierName": "ESPUMANTE CHANDON DEMI SEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO FELINO MALBEC",
+    "de": 129.9,
+    "por": 89.9,
+    "status": "amarelo",
+    "matchRating": 0.5652173913043478,
+    "vinculado": {
+      "rowId": "produto-56",
+      "supplierName": "VINHO TINTO ANUBIS MALBEC"
+    }
+  },
+  {
+    "loja": "NS",
+    "nome": "VINHO FRANCÊS ROSÉ PISCINE 750ml",
+    "de": 74.9,
+    "por": 64.9,
+    "status": "vermelho",
+    "matchRating": 0.2857142857142857,
+    "vinculado": null
+  },
+  {
+    "loja": "NS",
+    "nome": "VINHO PORTUGUÊS TAPADA DO CUNHA TINTO",
+    "de": 49.9,
+    "por": 27.99,
+    "status": "amarelo",
+    "matchRating": 0.5818181818181818,
+    "vinculado": {
+      "rowId": "produto-117",
+      "supplierName": "VINHO TINTO PORTUGUES PORTA 6"
+    }
+  },
+  {
+    "loja": "NS",
+    "nome": "DEMI PANACHÊ 600ML",
+    "de": 29.9,
+    "por": 16.99,
+    "status": "vermelho",
+    "matchRating": 0.2857142857142857,
+    "vinculado": {
+      "rowId": "produto-591",
+      "supplierName": "CACHAÇA ORIZONA GOLD BLACK 700 ML"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO FELINO MALBEC 750ml",
+    "de": 129.9,
+    "por": 89.9,
+    "status": "amarelo",
+    "matchRating": 0.52,
+    "vinculado": {
+      "rowId": "produto-63",
+      "supplierName": "VINHO AMALAYA MALBEC 750"
+    }
+  },
+  {
+    "loja": "EP",
+    "nome": "VINHO FRANCÊS ROSÉ PISCINE",
+    "de": 74.9,
+    "por": 64.9,
+    "status": "amarelo",
+    "matchRating": 0.6486486486486487,
+    "vinculado": {
+      "rowId": "produto-136",
+      "supplierName": "VINHO ROSE PISCINE"
+    }
+  },
+  {
+    "loja": "EP",
+    "nome": "VINHO PORTUGUÊS TAPADA DO CUNHA TINTO",
+    "de": 49.9,
+    "por": 27.99,
+    "status": "amarelo",
+    "matchRating": 0.5818181818181818,
+    "vinculado": {
+      "rowId": "produto-117",
+      "supplierName": "VINHO TINTO PORTUGUES PORTA 6"
+    }
+  },
+  {
+    "loja": "EP",
+    "nome": "DEMI PANACHÊ 600ml",
+    "de": 29.9,
+    "por": 16.99,
+    "status": "vermelho",
+    "matchRating": 0.2857142857142857,
+    "vinculado": {
+      "rowId": "produto-591",
+      "supplierName": "CACHAÇA ORIZONA GOLD BLACK 700 ML"
+    }
+  }
+]

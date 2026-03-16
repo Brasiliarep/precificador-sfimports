@@ -1,0 +1,488 @@
+[
+  {
+    "loja": "CE",
+    "nome": "VINHO PORTUGUÊS JULIA FLORISTA",
+    "de": 40.9,
+    "por": 32.9,
+    "status": "amarelo",
+    "matchRating": 0.7719298245614035,
+    "vinculado": {
+      "rowId": "produto-116",
+      "supplierName": "VINHO TINTO JULIA FLORISTA PORTUGUES"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "ESPUMANTE CASA PERINI",
+    "de": 54.9,
+    "por": 39.99,
+    "status": "amarelo",
+    "matchRating": 0.68,
+    "vinculado": {
+      "rowId": "produto-194",
+      "supplierName": "ESPUMANTE CASA PERINE VINTAGE LIQUEUR"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO SANTA RITA 120 RESERVA ESPECIAL",
+    "de": 49.9,
+    "por": 29.9,
+    "status": "amarelo",
+    "matchRating": 0.8051948051948052,
+    "vinculado": {
+      "rowId": "produto-37",
+      "supplierName": "VINHO SANTA RITA 120 RSERVA ESPECIAL CARMENERE"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "PAPA FIGOS",
+    "de": 139.9,
+    "por": 99,
+    "status": "vermelho",
+    "matchRating": 0.34782608695652173,
+    "vinculado": {
+      "rowId": "produto-396",
+      "supplierName": "VINHO TINTO PAPA FIGOS DOURO CASA FERREIRINHA"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO FOYE GRAN RESERVA",
+    "de": 49.9,
+    "por": 37.99,
+    "status": "amarelo",
+    "matchRating": 0.6666666666666666,
+    "vinculado": {
+      "rowId": "produto-24",
+      "supplierName": "VINHO CHILENO SIBARIS GRAN RESERVA CABERNET"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "APERITIVO APEROL 750ML",
+    "de": 69.9,
+    "por": 49.9,
+    "status": "amarelo",
+    "matchRating": 0.8947368421052632,
+    "vinculado": {
+      "rowId": "produto-236",
+      "supplierName": "APEROL APERITIVO 750 ML"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO LAS PERDICES RIESLING",
+    "de": 70.9,
+    "por": 59.9,
+    "status": "amarelo",
+    "matchRating": 0.6774193548387096,
+    "vinculado": {
+      "rowId": "produto-343",
+      "supplierName": "VINHO LAS PERDICES RESERVA ALBARINO"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "ABSOLUT VODKA 750ML",
+    "de": 89.9,
+    "por": 69.9,
+    "status": "vermelho",
+    "matchRating": 0.30303030303030304,
+    "vinculado": null
+  },
+  {
+    "loja": "CE",
+    "nome": "ABSOLUT VODKA 1 LITRO",
+    "de": 99.9,
+    "por": 84.9,
+    "status": "amarelo",
+    "matchRating": 0.8823529411764706,
+    "vinculado": {
+      "rowId": "produto-580",
+      "supplierName": "VODKA ABSOLUT 1 LITRO"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO PORTUGUÊS VERDE ESPORÃO BICO AMARELO",
+    "de": 80.9,
+    "por": 64.9,
+    "status": "amarelo",
+    "matchRating": 0.5263157894736842,
+    "vinculado": {
+      "rowId": "produto-456",
+      "supplierName": "VINHO BCO ESPORÃO RESERVA"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO CHAC CHAC RESERVA",
+    "de": 59.9,
+    "por": 39.99,
+    "status": "amarelo",
+    "matchRating": 0.7586206896551724,
+    "vinculado": {
+      "rowId": "produto-55",
+      "supplierName": "VINHO TINTO CHAC CHAC RESERVA TANNAT"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO CABALLO LOCO",
+    "de": 199,
+    "por": 179,
+    "status": "amarelo",
+    "matchRating": 0.625,
+    "vinculado": {
+      "rowId": "produto-36",
+      "supplierName": "VINHO CABALLO LOCO GRAND CURICÓ"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO SAN PEDRO 1865 SINGLE VINEYARD",
+    "de": 119.9,
+    "por": 89.9,
+    "status": "amarelo",
+    "matchRating": 0.45901639344262296,
+    "vinculado": {
+      "rowId": "produto-4",
+      "supplierName": "VINHO TINTO CHILANO RED BLEND"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO VIK A CABERNET FRANC",
+    "de": 139,
+    "por": 109.9,
+    "status": "amarelo",
+    "matchRating": 0.6461538461538462,
+    "vinculado": {
+      "rowId": "produto-24",
+      "supplierName": "VINHO CHILENO SIBARIS GRAN RESERVA CABERNET"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO LAS PERDICES",
+    "de": 49.9,
+    "por": 34.9,
+    "status": "amarelo",
+    "matchRating": 0.7058823529411765,
+    "vinculado": {
+      "rowId": "produto-328",
+      "supplierName": "VINHO TINTO LAS PERDICES DON JUAN"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO PORTUGUÊS OLARIA",
+    "de": 49.9,
+    "por": 34.9,
+    "status": "amarelo",
+    "matchRating": 0.5652173913043478,
+    "vinculado": {
+      "rowId": "produto-387",
+      "supplierName": "VINHO PORTUGUES CICONIA RED WINE"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO CHAC CHAC",
+    "de": 39.9,
+    "por": 28.99,
+    "status": "amarelo",
+    "matchRating": 0.6818181818181818,
+    "vinculado": {
+      "rowId": "produto-66",
+      "supplierName": "VINHO TINTO CHAC CHAC MALBEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO CASAS DEL TOQUI",
+    "de": 79.9,
+    "por": 69.9,
+    "status": "amarelo",
+    "matchRating": 0.6976744186046512,
+    "vinculado": {
+      "rowId": "produto-31",
+      "supplierName": "CASAS DEL TOQUI LEYENDA"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CARNIVOR CABERNET SAUVIGNON",
+    "de": 93.9,
+    "por": 69.9,
+    "status": "verde",
+    "matchRating": 0.9056603773584906,
+    "vinculado": {
+      "rowId": "produto-489",
+      "supplierName": "CARNIVOR CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CARNIVOR ZINFANDEL",
+    "de": 99,
+    "por": 79.9,
+    "status": "amarelo",
+    "matchRating": 0.8936170212765957,
+    "vinculado": {
+      "rowId": "produto-172",
+      "supplierName": "VINHO TINTO CARNIVOR ZINFANDEL"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO ANTIGAL UNO ROSÉ",
+    "de": 49.9,
+    "por": 37.99,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-963",
+      "supplierName": "VINHO ANTIGAL UNO ROSÉ 750ML"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO VIK A SUMMER RED",
+    "de": 109.9,
+    "por": 99.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-251",
+      "supplierName": "VIK “A” CARMENERE"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO SALENTEIN NUMINA MALBEC OU CHARDONNAY",
+    "de": 169.9,
+    "por": 139.9,
+    "status": "amarelo",
+    "matchRating": 0.6575342465753424,
+    "vinculado": {
+      "rowId": "produto-243",
+      "supplierName": "VINHO TT SALENTEIN NUMINA MALBEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO PORTUGUÊS PORTA 6 TINTO BAG 3 LITROS",
+    "de": 120,
+    "por": 99.99,
+    "status": "amarelo",
+    "matchRating": 0.7241379310344828,
+    "vinculado": {
+      "rowId": "produto-117",
+      "supplierName": "VINHO TINTO PORTUGUES PORTA 6"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO LA LINDA MALBEC 750ml",
+    "de": 59.9,
+    "por": 47.9,
+    "status": "amarelo",
+    "matchRating": 0.6274509803921569,
+    "vinculado": {
+      "rowId": "produto-63",
+      "supplierName": "VINHO AMALAYA MALBEC 750"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ITALIANO MEMORO QUATTRO ELEMENTI",
+    "de": 79.9,
+    "por": 59.9,
+    "status": "amarelo",
+    "matchRating": 0.5714285714285714,
+    "vinculado": {
+      "rowId": "produto-21",
+      "supplierName": "VINHO TINTO METROPOLITANO RED BLEND"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO VON SIEBENTHAL TOKNAR 750ml",
+    "de": 499.9,
+    "por": 449.9,
+    "status": "vermelho",
+    "matchRating": 0.2698412698412698,
+    "vinculado": null
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO PORTUGUÊS CASA FERREIRINHA BARCA VELHA",
+    "de": 6900.9,
+    "por": 5990.9,
+    "status": "amarelo",
+    "matchRating": 0.5,
+    "vinculado": {
+      "rowId": "produto-396",
+      "supplierName": "VINHO TINTO PAPA FIGOS DOURO CASA FERREIRINHA"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO CARMEN GRAN RESERVA",
+    "de": 99.9,
+    "por": 69.9,
+    "status": "amarelo",
+    "matchRating": 0.7076923076923077,
+    "vinculado": {
+      "rowId": "produto-24",
+      "supplierName": "VINHO CHILENO SIBARIS GRAN RESERVA CABERNET"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO PORTUGUÊS OLARIA",
+    "de": 49.9,
+    "por": 34.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-395",
+      "supplierName": "VINHO TINTO OLARIA SUAVE"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO DOMUS AUREA CABERNET SAUVIGNON",
+    "de": 749.9,
+    "por": 699.9,
+    "status": "amarelo",
+    "matchRating": 0.7384615384615385,
+    "vinculado": {
+      "rowId": "produto-17",
+      "supplierName": "VINHO TT RENO CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO ALBA DE DOMUS CABERNET SAUVIGNON",
+    "de": 269.9,
+    "por": 229.9,
+    "status": "amarelo",
+    "matchRating": 0.696969696969697,
+    "vinculado": {
+      "rowId": "produto-17",
+      "supplierName": "VINHO TT RENO CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO CABALLO LOCO",
+    "de": 199,
+    "por": 179.9,
+    "status": "amarelo",
+    "matchRating": 0.625,
+    "vinculado": {
+      "rowId": "produto-36",
+      "supplierName": "VINHO CABALLO LOCO GRAND CURICÓ"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO CASAS DEL TOQUR RESERVA",
+    "de": 59.9,
+    "por": 39.99,
+    "status": "amarelo",
+    "matchRating": 0.5897435897435898,
+    "vinculado": {
+      "rowId": "produto-250",
+      "supplierName": "VINHO TT CASAS DEL TOQUEI RERROIR GRAN RESERVA CARMENERE"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO MARQUES DE CASA CONCHA HERITAGE",
+    "de": 249.9,
+    "por": 199.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-8",
+      "supplierName": "MARQUES DE CASA CONCHA HERITAGE | 94 DES"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO FRANCÊS SAINT JULIEN DULUC DE BRANAIRE DUCRO",
+    "de": 419.9,
+    "por": 379.9,
+    "status": "amarelo",
+    "matchRating": 0.5483870967741935,
+    "vinculado": {
+      "rowId": "produto-655",
+      "supplierName": "DULUC DE BRANAIRE-DUCRU"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CALIFORNIANO CAYMUS 50TH ANNIVERSARY CABERNET SAUVIGNON",
+    "de": 1109.9,
+    "por": 999.9,
+    "status": "amarelo",
+    "matchRating": 0.5641025641025641,
+    "vinculado": {
+      "rowId": "produto-489",
+      "supplierName": "CARNIVOR CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO ESPANHOL LA RIOJA ALTA RIOJA RESERVA VINA ALBERDI",
+    "de": 399.9,
+    "por": 299.9,
+    "status": "amarelo",
+    "matchRating": 0.6052631578947368,
+    "vinculado": {
+      "rowId": "produto-343",
+      "supplierName": "VINHO LAS PERDICES RESERVA ALBARINO"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO CHILENO SEÑA",
+    "de": 759.9,
+    "por": 699.9,
+    "status": "amarelo",
+    "matchRating": 0.5641025641025641,
+    "vinculado": {
+      "rowId": "produto-4",
+      "supplierName": "VINHO TINTO CHILANO RED BLEND"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO ARGENTINO CHAC CHAC RESERVA",
+    "de": 59.9,
+    "por": 39.99,
+    "status": "amarelo",
+    "matchRating": 0.7586206896551724,
+    "vinculado": {
+      "rowId": "produto-55",
+      "supplierName": "VINHO TINTO CHAC CHAC RESERVA TANNAT"
+    }
+  },
+  {
+    "loja": "GL",
+    "nome": "VINHO ARGENTINO FINCA LA ANITA",
+    "de": 139.9,
+    "por": 119.9,
+    "status": "amarelo",
+    "matchRating": 0.5365853658536586,
+    "vinculado": {
+      "rowId": "produto-406",
+      "supplierName": "VINHO TINTO ALANDRA"
+    }
+  }
+]

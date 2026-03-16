@@ -1,0 +1,183 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: #1c1c1c;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+header h1 { font-size: 16px; margin: 0; }
+
+header button {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  main { flex-direction: column; }
+  .controls { width: 100% !important; }
+}
+
+.controls {
+  width: 280px;
+  background: #1e1e1e;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.controls label {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.controls textarea,
+.controls input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.controls small {
+  display: block;
+  margin-top: 10px;
+  color: #aaa;
+}
+
+/* ===== Canvas ===== */
+.canvas-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#canvas {
+  position: relative;
+  width: 360px;
+  height: 640px;
+  background: #000;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* Template nunca pode “pegar” clique/toque */
+#template {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ===== Editáveis ===== */
+.layer,
+.text-layer {
+  position: absolute;
+  z-index: 10;
+  touch-action: none;
+  user-select: none;
+}
+
+/* Produto: wrapper redimensionável + imagem dentro */
+.layer {
+  left: 80px;
+  top: 120px;
+  width: 200px;
+  height: 320px;
+  transform: none;
+  cursor: move;
+
+  border: 2px dashed rgba(0, 255, 136, 0.25);
+  border-radius: 10px;
+  background: rgba(0,0,0,0.10);
+
+  overflow: hidden; /* imagem não vaza */
+}
+
+.layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Texto com quebra dentro da caixa (largura/altura) */
+.text-layer {
+  left: 18px;
+  top: 420px;            /* depois o JS pode mexer; é só posição inicial */
+  width: 324px;
+  min-height: 44px;
+  transform: none;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+
+  cursor: move;
+  border: 1px dashed rgba(0, 255, 136, 0.25);
+  border-radius: 10px;
+  background: rgba(0,0,0,0.15);
+  padding: 10px 12px;
+}
+
+.text-layer.preco {
+  top: 500px;
+  font-size: 28px;
+  color: #00ff88;
+}
+
+/* ===== Handles (dentro do elemento) ===== */
+.handle {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #00ff88;
+  border: 2px solid rgba(0,0,0,0.55);
+  border-radius: 50%;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.handle.nw { left: 0; top: 0; cursor: nwse-resize; }
+.handle.ne { right: 0; top: 0; cursor: nesw-resize; }
+.handle.sw { left: 0; bottom: 0; cursor: nesw-resize; }
+.handle.se { right: 0; bottom: 0; cursor: nwse-resize; }
+
+/* feedback */
+.layer.is-selected,
+.text-layer.is-selected {
+  outline: 2px solid rgba(0, 255, 136, 0.85);
+  outline-offset: 2px;
+}

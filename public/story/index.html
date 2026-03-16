@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF Imports • Stories</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0b;
+      color: #fff
+    }
+
+    header {
+      padding: 14px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      font-weight: 900
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #2a2a2a;
+      background: #111;
+      color: #fff;
+      font-size: 16px;
+      box-sizing: border-box
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 12px
+    }
+
+    .card {
+      background: #121212;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 10px;
+      cursor: pointer
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #000;
+      border-radius: 10px
+    }
+
+    .name {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.25;
+      min-height: 34px
+    }
+
+    .price {
+      opacity: .85;
+      font-size: 13px;
+      margin-top: 4px
+    }
+
+    .hint {
+      opacity: .75;
+      font-size: 12px;
+      margin: 10px 0 0
+    }
+
+    .err {
+      color: #ffb3b3;
+      white-space: pre-wrap;
+      font-size: 12px;
+      margin-top: 10px
+    }
+  </style>
+  <script src="../produtos.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">SF Imports • Gerador de Stories</div>
+  </header>
+
+  <main class="wrap" style="padding:12px">
+    <input id="q" placeholder="Buscar produto..." autocomplete="off" />
+    <div class="hint">Clique no produto → escolha o template → edite → Baixar PNG.</div>
+    <div id="err" class="err"></div>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const errBox = document.getElementById('err');
+    const q = document.getElementById('q');
+
+    let all = [];
+
+    async function loadProducts(searchTerm = "") {
+      errBox.textContent = "";
+
+      // PRIORIDADE LOCAL: produtos.js (estático)
+      // Isso resolve o problema de 404 no api-products.php e falta de PHP local.
+      if (typeof produtos !== 'undefined' && Array.isArray(produtos)) {
+        console.log("SF Debug: Usando produtos.js (estático)");
+        let filtered = produtos;
+        if (searchTerm) {
+          const s = searchTerm.toUpperCase();
+          filtered = produtos.filter(p =>
+            p.nome.toUpperCase().includes(s)
+          );
+        }
+
+        // Mapear para o formato do Gerador de Stories
+        all = filtered.slice(0, 100).map((p, idx) => ({
+          id: p.id || idx,
+          name: p.nome || "",
+          price: p.preco_por || p.preco_de || "",
+          regular_price: p.preco_de || "",
+          image: p.imagem || ""
+        }));
+
+        render(all);
+        return;
+      }
+
+      // FALLBACK: Lógica original (API/PHP)
+      try {
+        const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        const url = isLocal ? "mock-products.json" : ("api-products.php" + (searchTerm ? ("?search=" + encodeURIComponent(searchTerm)) : ""));
+
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) {
+          const errText = await res.text();
+          errBox.textContent = `Erro ${res.status}: ${res.statusText}\n\n${errText.slice(0, 400)}`;
+          return;
+        }
+        const text = await res.text();
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          errBox.textContent = "Erro: " + (isLocal ? "mock-products.json" : "api-products.php") + " não retornou JSON válido.\n\n" + text.slice(0, 400);
+          return;
+        }
+
+        if (!Array.isArray(data)) {
+          errBox.textContent = "Erro: resposta não é array.\n\n" + JSON.stringify(data).slice(0, 400);
+          return;
+        }
+
+        all = data.map(p => ({
+          id: p.id,
+          name: p.name || "",
+          price: p.price || "",
+          regular_price: p.regular_price || "",
+          image: (p.images && p.images[0] && p.images[0].src) ? p.images[0].src : ""
+        }));
+
+        render(all);
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+        errBox.textContent = "Erro de conexão: " + error.message + "\n\nTente recarregar a página.";
+      }
+    }
+
+    function render(list) {
+      grid.innerHTML = "";
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = "card";
+        card.innerHTML = `
+        <img src="${p.image || ''}" alt="">
+        <div class="name">${escapeHtml(p.name)}</div>
+        <div class="price">R$ ${escapeHtml(p.price || '')}</div>
+      `;
+        card.onclick = () => {
+          localStorage.setItem("sf_pending_product", JSON.stringify(p));
+          // Define template padrão para satisfazer o fluxo direto
+          if (!localStorage.getItem("sf_template_file")) {
+            localStorage.setItem("sf_template_file", "templatesf.png");
+          }
+          window.location.href = "editor.html";
+        };
+        grid.appendChild(card);
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    let t = null;
+    q.addEventListener("input", () => {
+      clearTimeout(t);
+      t = setTimeout(() => loadProducts(q.value.trim()), 250);
+    });
+
+    // Carregar produtos com tratamento de erro
+    window.addEventListener('load', () => {
+      loadProducts();
+    });
+
+    // Prevenir fechamento automático
+    window.addEventListener('error', (e) => {
+      console.error('Erro global:', e.error);
+      errBox.textContent = "Erro ao carregar: " + e.error.message;
+      e.preventDefault();
+    });
+  </script>
+</body>
+
+</html>

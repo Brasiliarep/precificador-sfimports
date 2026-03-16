@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏪 STORE MASTER - SF Imports</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function StoreMaster() {
+            const [produto, setProduto] = useState({
+                nome: '',
+                idWooCommerce: '',
+                precoDe: '',
+                precoPor: '',
+                tipoUva: '',
+                safra: '',
+                descricao: '',
+                pais: '',
+                regiao: '',
+                ml: '750ml',
+                categoria: 'Vinho',
+                imagem: null
+            });
+
+            const handleInputChange = (field, value) => {
+                setProduto(prev => ({ ...prev, [field]: value }));
+            };
+
+            const handleImageUpload = (e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        setProduto(prev => ({ ...prev, imagem: event.target?.result }));
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            const adicionarATabela = () => {
+                // Validação básica
+                if (!produto.nome || !produto.precoDe || !produto.precoPor) {
+                    alert('❌ Preencha nome, preço DE e preço POR!');
+                    return;
+                }
+
+                // Criar objeto no formato da tabela principal
+                const novoProduto = {
+                    id: produto.idWooCommerce || Math.random().toString(36).substr(2, 9),
+                    supplierName: produto.nome,
+                    sfDe: parseFloat(produto.precoDe.replace('R$', '').replace(',', '.')) || 0,
+                    sfPor: parseFloat(produto.precoPor.replace('R$', '').replace(',', '.')) || 0,
+                    tipoUva: produto.tipoUva,
+                    safra: produto.safra,
+                    descricao: produto.descricao,
+                    pais: produto.pais,
+                    regiao: produto.regiao,
+                    volume: produto.ml,
+                    categoria: produto.categoria,
+                    imagem: produto.imagem
+                };
+
+                // Salvar no localStorage para ser capturado pelo precificador
+                const produtosExistentes = JSON.parse(localStorage.getItem('novosProdutos') || '[]');
+                produtosExistentes.push(novoProduto);
+                localStorage.setItem('novosProdutos', JSON.stringify(produtosExistentes));
+
+                alert('✅ Produto adicionado à tabela de preços!\n\n' +
+                      '📦 Produto: ' + produto.nome + '\n' +
+                      '💰 Preço DE: ' + produto.precoDe + '\n' +
+                      '💰 Preço POR: ' + produto.precoPor + '\n\n' +
+                      '🔄 Volte ao precificador para ver o produto na tabela!');
+
+                // Limpar formulário
+                setProduto({
+                    nome: '',
+                    idWooCommerce: '',
+                    precoDe: '',
+                    precoPor: '',
+                    tipoUva: '',
+                    safra: '',
+                    descricao: '',
+                    pais: '',
+                    regiao: '',
+                    ml: '750ml',
+                    categoria: 'Vinho',
+                    imagem: null
+                });
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-900 text-white p-8">
+                    <div className="max-w-4xl mx-auto">
+                        {/* Header */}
+                        <div className="mb-8 text-center">
+                            <h1 className="text-4xl font-bold mb-2">🏪 STORE MASTER</h1>
+                            <p className="text-gray-400">Adicionar novo produto ao sistema SF Imports</p>
+                        </div>
+
+                        {/* Formulário */}
+                        <div className="bg-gray-800 rounded-xl p-8 shadow-2xl">
+                            <div className="grid md:grid-cols-2 gap-6">
+                                
+                                {/* Coluna Esquerda */}
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">🏷️ NOME DO PRODUTO *</label>
+                                        <input
+                                            type="text"
+                                            value={produto.nome}
+                                            onChange={(e) => handleInputChange('nome', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                            placeholder="Ex: VINHO TINTO CABERNET SAUVIGNON"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">🛒 ID WOOCOMMERCE</label>
+                                        <input
+                                            type="text"
+                                            value={produto.idWooCommerce}
+                                            onChange={(e) => handleInputChange('idWooCommerce', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                            placeholder="ID do produto no WooCommerce"
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium mb-2">💰 PREÇO DE *</label>
+                                            <input
+                                                type="text"
+                                                value={produto.precoDe}
+                                                onChange={(e) => handleInputChange('precoDe', e.target.value)}
+                                                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                                placeholder="R$ 189,90"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-2">💰 PREÇO POR *</label>
+                                            <input
+                                                type="text"
+                                                value={produto.precoPor}
+                                                onChange={(e) => handleInputChange('precoPor', e.target.value)}
+                                                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none bg-yellow-50 text-black font-bold"
+                                                placeholder="R$ 149,90"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">🍇 TIPO DE UVA</label>
+                                        <input
+                                            type="text"
+                                            value={produto.tipoUva}
+                                            onChange={(e) => handleInputChange('tipoUva', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                            placeholder="Ex: Cabernet Sauvignon, Malbec, Merlot"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">📅 SAFRA</label>
+                                        <input
+                                            type="text"
+                                            value={produto.safra}
+                                            onChange={(e) => handleInputChange('safra', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                            placeholder="Ex: 2022, 2023"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Coluna Direita */}
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">🌍 PAÍS</label>
+                                        <input
+                                            type="text"
+                                            value={produto.pais}
+                                            onChange={(e) => handleInputChange('pais', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                            placeholder="Ex: Brasil, Argentina, Chile"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">📍 REGIÃO</label>
+                                        <input
+                                            type="text"
+                                            value={produto.regiao}
+                                            onChange={(e) => handleInputChange('regiao', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                            placeholder="Ex: Vale dos Vinhedos, Mendoza"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">🍶 VOLUME (ML)</label>
+                                        <select
+                                            value={produto.ml}
+                                            onChange={(e) => handleInputChange('ml', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                        >
+                                            <option value="750ml">750ml</option>
+                                            <option value="1000ml">1000ml</option>
+                                            <option value="1500ml">1500ml</option>
+                                            <option value="200ml">200ml</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">📂 CATEGORIA</label>
+                                        <select
+                                            value={produto.categoria}
+                                            onChange={(e) => handleInputChange('categoria', e.target.value)}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none"
+                                        >
+                                            <option value="Vinho">Vinho</option>
+                                            <option value="Espumante">Espumante</option>
+                                            <option value="Whisky">Whisky</option>
+                                            <option value="Vodka">Vodka</option>
+                                            <option value="Outros">Outros</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">🖼️ IMAGEM DO PRODUTO</label>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageUpload}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold"
+                                        />
+                                        {produto.imagem && (
+                                            <div className="mt-4">
+                                                <img 
+                                                    src={produto.imagem} 
+                                                    alt="Preview" 
+                                                    className="w-full h-48 object-cover rounded-lg border border-gray-600"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium mb-2">📝 DESCRIÇÃO</label>
+                                        <textarea
+                                            value={produto.descricao}
+                                            onChange={(e) => handleInputChange('descricao', e.target.value)}
+                                            rows={4}
+                                            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none resize-none"
+                                            placeholder="Descrição detalhada do produto..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Botão de Ação */}
+                            <div className="mt-8 text-center">
+                                <button
+                                    onClick={adicionarATabela}
+                                    className="px-12 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-lg font-bold text-xl shadow-lg hover:shadow-green-500/50 transform hover:scale-105 transition-all"
+                                >
+                                    📦 ADICIONAR À TABELA DE PREÇOS
+                                </button>
+                            </div>
+
+                            <div className="mt-4 text-center text-gray-400 text-sm">
+                                <p>Os campos com * são obrigatórios</p>
+                                <p className="mt-2">Após adicionar, volte ao precificador para ver o produto na tabela!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Renderizar o componente
+        ReactDOM.render(<StoreMaster />, document.getElementById('root'));
+    </script>
+</body>
+</html>

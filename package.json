@@ -1,0 +1,50 @@
+{
+  "name": "precificador-sfimports",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "frontend": "vite --host",
+    "backend": "node --watch server-simple.cjs",
+    "build": "vite build",
+    "start": "node --watch server-simple.cjs",
+    "preview": "vite preview",
+    "preparar-catalogo": "python ferramentas_catalogo/app_processador.py",
+    "processar-imagens": "python ferramentas_catalogo/app_processador.py"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@imgly/background-removal": "^1.7.0",
+    "archiver": "^7.0.1",
+    "axios": "^1.13.6",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "groq-sdk": "^0.37.0",
+    "html2canvas": "^1.4.1",
+    "jsonwebtoken": "^9.0.3",
+    "jspdf": "2.5.1",
+    "jspdf-autotable": "3.8.2",
+    "lucide-react": "^0.563.0",
+    "multer": "^2.1.0",
+    "mysql2": "^3.18.0",
+    "papaparse": "^5.5.3",
+    "puppeteer": "^24.39.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remove.bg": "^1.3.0",
+    "sharp": "^0.34.5",
+    "string-similarity": "^4.0.4",
+    "tesseract.js": "^4.1.4",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.11",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.2.1",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

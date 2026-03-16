@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Produto Teste 1",
+        "price": "100.00",
+        "images": [
+            {
+                "src": "https://via.placeholder.com/300x300/333/fff?text=Produto+1"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Produto Teste 2",
+        "price": "200.00",
+        "images": [
+            {
+                "src": "https://via.placeholder.com/300x300/333/fff?text=Produto+2"
+            }
+        ]
+    }
+]

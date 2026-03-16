@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Escolher template</title>
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0b0b0b;color:#fff}
+    .wrap{max-width:900px;margin:0 auto;padding:14px}
+    h1{font-size:18px;margin:0 0 10px}
+    .hint{opacity:.75;font-size:12px;margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .card{background:#121212;border:1px solid #2a2a2a;border-radius:14px;padding:10px;cursor:pointer}
+    .card img{width:100%;aspect-ratio:9/16;object-fit:contain;background:#000;border-radius:10px}
+    .name{margin-top:8px;font-weight:900}
+    .back{display:inline-block;margin-top:12px;color:#fff;opacity:.9}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Escolha o template</h1>
+    <p class="hint">Depois você edita e baixa o PNG.</p>
+
+    <div class="grid">
+      <div class="card" onclick="pick('templatesf.png')">
+        <img src="templatesf.png" alt="">
+        <div class="name">SF Imports</div>
+      </div>
+
+      <div class="card" onclick="pick('templateotoval.png')">
+        <img src="templateotoval.png" alt="">
+        <div class="name">Otoval</div>
+      </div>
+    </div>
+
+    <a class="back" href="index.html">Voltar</a>
+  </div>
+
+<script>
+  // precisa existir produto pendente
+  const p = localStorage.getItem("sf_pending_product");
+  if (!p) location.href = "index.html";
+
+  function pick(file){
+    localStorage.setItem("sf_template_file", file);
+    location.href = "editor.html";
+  }
+</script>
+</body>
+</html>

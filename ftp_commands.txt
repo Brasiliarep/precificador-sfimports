@@ -1,0 +1,16 @@
+open sfimportsdf.com.br 
+u855614676 
+@16052620Df@@ 
+cd /public_html/gestaosf 
+lcd dist 
+mput *.* 
+mkdir assets 
+cd assets 
+lcd dist\assets 
+mput *.* 
+cd .. 
+lcd .. 
+put server-simple.cjs 
+put package.json 
+put .env 
+bye 

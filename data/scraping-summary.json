@@ -1,0 +1,1371 @@
+{
+  "updatedAt": "2026-03-16T15:41:51.952Z",
+  "fontes": [
+    {
+      "fonte": "vivino",
+      "status": "parcial",
+      "ultimaAtualizacao": "2026-03-16T15:06:35.219Z",
+      "totalProcessados": 1,
+      "alteracoesPreco": 0,
+      "erros": 0,
+      "semMatch": 1,
+      "resumo": "Vinho não encontrado: WHISKEY EAGLE RARE",
+      "itens": []
+    },
+    {
+      "fonte": "superadega",
+      "status": "sem_dados",
+      "ultimaAtualizacao": null,
+      "totalProcessados": 0,
+      "alteracoesPreco": 0,
+      "erros": 0,
+      "semMatch": 0,
+      "resumo": "Aguardando execução",
+      "itens": []
+    },
+    {
+      "fonte": "milao",
+      "status": "ok",
+      "ultimaAtualizacao": "2026-03-16T15:41:51.952Z",
+      "totalProcessados": 1343,
+      "alteracoesPreco": 0,
+      "erros": 0,
+      "semMatch": 0,
+      "resumo": "Sincronização startup: undefined novos, undefined atualizados.",
+      "itens": [
+        {
+          "id": "produto-969",
+          "produto": "AGUA C/GAS PETROPOLITANA 510ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-970",
+          "produto": "AGUA MINERAL SEM /GAS MAMBA 350ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-971",
+          "produto": "ÁGUA PRATA C GÁS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-972",
+          "produto": "ÁGUA PRATA S GÁS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-287",
+          "produto": "ALAMBRADO ETIQUETA MALBEC",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-471",
+          "produto": "ALLEGRANZA TEMPRANILLO 750 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-973",
+          "produto": "ALMA DO TEJO",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-974",
+          "produto": "ALTA VISTA MALBEC ESTATE PREMIUN",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-975",
+          "produto": "ALTAZOR D.O. VALLE DEL MAIPO 2022",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-295",
+          "produto": "ANGELICA ZAPATA CHARDONNAY",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-296",
+          "produto": "ANGELICA ZAPATA MALBEC",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-592",
+          "produto": "ANGUSTURA BITTERS 100 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-327",
+          "produto": "ANIMAL CHARDONNAY",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-95",
+          "produto": "ANTINORI TIGNANELLO",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-231",
+          "produto": "APERITIVO BITTER CAMPARI 998 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-976",
+          "produto": "APERITIVO CAMPARI 998ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-236",
+          "produto": "APEROL APERITIVO 750 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-977",
+          "produto": "APOTHIC CABERNET SAUVIGNON 2020",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-978",
+          "produto": "AZEITE DE CECCO EXTRA VIRGEM",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-979",
+          "produto": "B WHISKY USA BOURBON JIM BEAM GREEN APPLE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-980",
+          "produto": "BAILEYS ORIGINAL",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-270",
+          "produto": "BARON PHILIPPE DE ROTHSCHILD RESERVA VALLE CABERNET",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-359",
+          "produto": "BATASIOLO DOLCETTO D ALBA",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-981",
+          "produto": "BB VH PORT CAVALEIROS DE SANTIAGO REG PEN SETUBAL BC 750 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via similarity"
+        },
+        {
+          "id": "produto-981",
+          "produto": "BB VH PORT CAVALEIROS DE SANTIAGO REG PEN SETUBAL TT 750 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via similarity"
+        },
+        {
+          "id": "produto-982",
+          "produto": "BEB ALC APPLE DRINK FLOWERS DRINKS 269ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-983",
+          "produto": "BEB ALC COSMOPOLITAN FLOWERS DRINKS 269ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-984",
+          "produto": "BEB ALC MOSCOW MULE FLOWERS DRINKS 269ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-985",
+          "produto": "BEB ALC SPRITZ FLOWERS DRINKS 269ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-986",
+          "produto": "BEBIDA ALC MOJITO FLOWERS DRINKS 269ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-987",
+          "produto": "BEEFEATER LONDOM BLACKBERRY",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-351",
+          "produto": "BEN MARCO CABERNET SAUVIGNON",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via similarity"
+        },
+        {
+          "id": "produto-988",
+          "produto": "CABALLO LOCO NUMBER 21",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-989",
+          "produto": "CABALLO LOCO SAGRADA FAMILIA",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via similarity"
+        },
+        {
+          "id": "produto-990",
+          "produto": "CABERNET FRANC RESERVA (ALTA YARI) 2023",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-991",
+          "produto": "CABERNET SAUVIGNON RESERVA (ALTA YARI) 2023",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-591",
+          "produto": "CACHAÇA ORIZONA GOLD BLACK 700 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-134",
+          "produto": "CAIS DA RIBEIRA TAWNY",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-325",
+          "produto": "CALLIA BRANCO CHARDONNAY",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-566",
+          "produto": "CAMPARI NEGRONI",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-567",
+          "produto": "CAPUEIRA GIN 950 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-992",
+          "produto": "CARMEN GRAN RESERVA CABERNET SAUV TTO 750ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-993",
+          "produto": "CARMEN GRAN RESERVA CHARDONNAY 750ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-248",
+          "produto": "CARMIN DE PEUMO CARMENERE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-489",
+          "produto": "CARNIVOR CABERNET SAUVIGNON",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-489",
+          "produto": "CARNIVOR CABERNET SAUVIGNON",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-994",
+          "produto": "CASA PERINI BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-994",
+          "produto": "CASA PERINI BRUT ROSE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-995",
+          "produto": "CASA PERINI MOSCATEL",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-525",
+          "produto": "CASA VALDUGA ARTE TRADIÇÃO",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-509",
+          "produto": "CASA VALDUGA EXTRA BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-31",
+          "produto": "CASAS DEL TOQUI LEYENDA",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-996",
+          "produto": "CASAS DEL TOQUI RESERVA CHARDONNAY",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-997",
+          "produto": "CASAS DEL TOQUI RESERVA SEMILLON",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-35",
+          "produto": "CASILEIRO DEL DIABLO RED BLEND",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-998",
+          "produto": "CASILLERO DEL DIABLO B LIGHT BCO",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-999",
+          "produto": "CASILLERO DEL DIABLO B LIGHT BCO (CÓPIA)",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-313",
+          "produto": "CASSONE RESERVA MALBEC/CAB. SAUV",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-312",
+          "produto": "CASSONE RESERVA MALBEC/MALBEC",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-311",
+          "produto": "CASSONE RESERVA MALBEC/SYRAH",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-283",
+          "produto": "CATENA CHARDONNAY BRANCO",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-241",
+          "produto": "CAVA FREIXENET CORDON NEGRO BRUT 1,5",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via similarity"
+        },
+        {
+          "id": "produto-1000",
+          "produto": "CAVA SEGURA VIUDAS RESERVA HEREDAD BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1001",
+          "produto": "CERVEJA HEINEKEN LONG NECK SHOT 250ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1002",
+          "produto": "CHAMP. VEUVE CLICQUOT ICE JACKET BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1003",
+          "produto": "CHAMPAGNE CHANDON BRUT ROSE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-533",
+          "produto": "CHAMPAGNE CHANDON GARDEN SPRITZ",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-190",
+          "produto": "CHAMPAGNE CHANDON PASSION ON ICE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-197",
+          "produto": "CHAMPAGNE DOM PERIGNON BRUT 750",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1004",
+          "produto": "CHAMPAGNE MOET CHANDON BRUT 750ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-191",
+          "produto": "CHAMPAGNE MOET CHANDON BRUT IMPERIAL",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-530",
+          "produto": "CHAMPAGNE MOET NECTAR IMPERIAL",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-530",
+          "produto": "CHAMPAGNE MOET NECTAR IMPERIAL",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-1005",
+          "produto": "CHAMPAGNE MOET NECTAR IMPERIAL 1,5 LTS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-200",
+          "produto": "CHAMPAGNE PERRIE JOUET BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1006",
+          "produto": "CHAMPAGNE RUINART BLANC DE BLANCS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-531",
+          "produto": "CHAMPAGNE TAITTINGER PRESTIGE 750 ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-198",
+          "produto": "CHAMPAGNE VEUVE CLICQUOT BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-198",
+          "produto": "CHAMPAGNE VEUVE CLICQUOT BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via exact-name"
+        },
+        {
+          "id": "produto-532",
+          "produto": "CHAMPGNE RUIMART BLANC DE BLANC",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-201",
+          "produto": "CHAMPGNE RUIMART ROSE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1007",
+          "produto": "CHANDON BRUT ROSE PACK 6 750 ML + 1 MAGNUM 1,",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1008",
+          "produto": "CHANDON EXCELLENCE BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1009",
+          "produto": "CHANDON RESERVE BRUT PACK 6GFS 750ML E 1 MAGN",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1010",
+          "produto": "CHARDONNAY RESERVA(ALTA YARI) 2023",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-504",
+          "produto": "CHATEAAU KSARA",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-466",
+          "produto": "CHATEAU MARGAUX 1982",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-462",
+          "produto": "CHÂTEAU PICHON BARON LES GRIFFONS PAUILLAC",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-464",
+          "produto": "CHATEAUNEUF-DU-PAPE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1011",
+          "produto": "CHIPS BRUSCHETTE",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-203",
+          "produto": "CHIVAS 25 ANOS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1012",
+          "produto": "CHIVAS REGAL 12ANOS 1L",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1013",
+          "produto": "CHIVAS REGAL 15 ANOS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-548",
+          "produto": "CHIVAS REGAL 18 ANOS",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1014",
+          "produto": "CLAUDE VAL ROUGE (PAUL MAS) 2022",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1015",
+          "produto": "COCA COLA 2 L",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1016",
+          "produto": "COCA COLA 2 L ZERO",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1017",
+          "produto": "CODORNIU CAVA CLASSICO ROSADO BRUT",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-590",
+          "produto": "CONHAQUE REMY MARTIN 700ML",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        },
+        {
+          "id": "produto-1018",
+          "produto": "CREME DE GORGONZOLA SÃO VICENTE 250 G",
+          "precoAnterior": null,
+          "precoNovo": null,
+          "variacao": 0,
+          "status": "alterado",
+          "observacao": "Sincronizado via milaoId"
+        }
+      ]
+    },
+    {
+      "fonte": "superadega_ia",
+      "status": "ok",
+      "ultimaAtualizacao": "2026-03-16T01:27:37.297Z",
+      "totalProcessados": 1,
+      "alteracoesPreco": 1,
+      "erros": 0,
+      "semMatch": 0,
+      "resumo": "Buscado: \"VINHO CABALLO LOCO GRAND APALTA\" -> Encontrado: \"Vinho Caballo Loco N 19 750ml\"",
+      "itens": [
+        {
+          "id": "ia-1773624457297",
+          "produto": "Vinho Caballo Loco N 19 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 679.9,
+          "status": "alterado",
+          "observacao": "Match IA: 4.4/10"
+        }
+      ]
+    },
+    {
+      "fonte": "superadega_bulk",
+      "status": "ok",
+      "ultimaAtualizacao": "2026-03-16T09:14:01.815Z",
+      "totalProcessados": 1065,
+      "alteracoesPreco": 0,
+      "erros": 0,
+      "semMatch": 0,
+      "resumo": "Catálogo completo sincronizado com 1065 itens.",
+      "itens": [
+        {
+          "id": "champagne-moet-amp-chandon-brut-imperial-750ml",
+          "produto": "Champagne Moët &amp; Chandon Brut Impérial 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 379.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-cartuxa-evora-colheita-750ml",
+          "produto": "Vinho Cartuxa Evora Colheita 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 229.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-casa-ferreirinha-papa-figos-douro-750ml",
+          "produto": "Vinho Casa Ferreirinha Papa Figos Douro 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 109.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-muga-el-anden-de-la-estacion-750ml-muguinha-",
+          "produto": "Vinho Muga El Andén de la Estación 750ml (Muguinha)",
+          "precoAnterior": 0,
+          "precoNovo": 159.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-fundacao-ea-cartuxa-750ml",
+          "produto": "Vinho Fundação EA Cartuxa 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 57.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "espumante-la-roche-brut-750ml",
+          "produto": "Espumante La Roche Brut 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 36.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-the-macallan-double-cask-12-anos-700ml",
+          "produto": "Whisky The Macallan Double Cask 12 Anos 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 839.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-cartuxa-evora-branco-750ml",
+          "produto": "Vinho Cartuxa Evora Branco 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 152.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-the-macallan-sherry-oak-cask-12-anos-700ml",
+          "produto": "Whisky The Macallan Sherry Oak Cask 12 Anos 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 899.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-periquita-750ml",
+          "produto": "Vinho Periquita 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 54.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-chateau-redon-bordeaux-750ml",
+          "produto": "Vinho Chateau Redon Bordeaux 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 79.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-royal-salute-polo-edition-rio-de-janeiro-21-anos-700ml",
+          "produto": "Whisky Royal Salute Polo Edition Rio De Janeiro 21 Anos 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 899.99,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-royal-salute-the-polo-edition-miami-700ml",
+          "produto": "Whisky Royal Salute The Polo Edition Miami 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 899.99,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-petit-vega-18-750ml",
+          "produto": "Vinho Petit Vega 18 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 109.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-villa-antinori-toscana-igt-750ml",
+          "produto": "Vinho Villa Antinori Toscana IGT 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 179.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-castello-banfi-brunello-di-montalcino-750ml",
+          "produto": "Vinho Castello Banfi Brunello di Montalcino 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 739.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-vik-mia-millahue-750ml",
+          "produto": "Vinho Vik Mia Millahue 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 149.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-royal-salute-grain-21-anos-700ml",
+          "produto": "Whisky Royal Salute Grain 21 Anos 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 1099.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-johnnie-walker-gold-label-750ml",
+          "produto": "Whisky Johnnie Walker Gold Label 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 249.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-chivas-regal-18-anos-750ml",
+          "produto": "Whisky Chivas Regal 18 Anos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 379.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-the-glenlivet-single-malt-12-anos-750ml",
+          "produto": "Whisky The Glenlivet Single Malt 12 Anos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 349.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-dewars-15-anos-750ml",
+          "produto": "Whisky Dewars 15 Anos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 194.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-talisker-single-malt-10-anos-750ml",
+          "produto": "Whisky Talisker Single Malt 10 Anos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 539.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-vik-milla-cala-750ml",
+          "produto": "Vinho Vik Milla Cala 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 199.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-julia-florista-750ml",
+          "produto": "Vinho Julia Florista 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 32.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-verde-esporao-bico-amarelo-750ml",
+          "produto": "Vinho Verde Esporão Bico Amarelo 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 57.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-cobos-felino-malbec-750ml",
+          "produto": "Vinho Cobos Felino Malbec 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 109.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-royal-salute-signature-21-anos-700ml",
+          "produto": "Whisky Royal Salute Signature 21 Anos 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 1059.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "espumante-casa-valduga-arte-brut-750ml",
+          "produto": "Espumante Casa Valduga Arte Brut 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 56.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-quinta-de-bons-ventos-750ml",
+          "produto": "Vinho Quinta de Bons Ventos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 36.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-petit-vega-8-meses-750ml",
+          "produto": "Vinho Petit Vega 8 meses 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 74.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-johnnie-walker-green-label-15-anos-750ml",
+          "produto": "Whisky Johnnie Walker Green Label 15 Anos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 739.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-the-macallan-double-cask-single-malt-15-anos-700ml",
+          "produto": "Whisky The Macallan Double Cask Single Malt 15 Anos 700ml",
+          "precoAnterior": 0,
+          "precoNovo": 1999.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "whisky-dewars-18-anos-750ml",
+          "produto": "Whisky Dewars 18 Anos 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 679.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-aurora-millesime-cabernet-sauvignon-750ml",
+          "produto": "Vinho Aurora Millésime Cabernet Sauvignon 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 99.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-rutini-cabernet-sauvignon-malbec-750ml",
+          "produto": "Vinho Rutini Cabernet Sauvignon Malbec 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 129.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-susana-balbo-crios-malbec-750ml",
+          "produto": "Vinho Susana Balbo Crios Malbec 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 64.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-norton-doc-malbec-750ml",
+          "produto": "Vinho Norton DOC Malbec 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 69.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-casa-ferreirinha-esteva-douro-750ml",
+          "produto": "Vinho Casa Ferreirinha Esteva Douro 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 69.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-frescobaldi-tenuta-castiglioni-toscana-igt-750ml",
+          "produto": "Vinho Frescobaldi Tenuta Castiglioni Toscana IGT 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 144.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-perez-cruz-gran-reserva-cabernet-sauvignon-750ml",
+          "produto": "Vinho Perez Cruz Gran Reserva Cabernet Sauvignon 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 69.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-portada-lote-dfj-750ml",
+          "produto": "Vinho Portada Lote DFJ 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 57.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-yellow-tail-shiraz-750ml",
+          "produto": "Vinho Yellow Tail Shiraz 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 46.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-chilano-cabernet-sauvignon-750ml",
+          "produto": "Vinho Chilano Cabernet Sauvignon 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 21.99,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-porta-6-750ml",
+          "produto": "Vinho Porta 6 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 49.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-rebento-da-cepa-750ml",
+          "produto": "Vinho Rebento da Cepa 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 34.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-cordero-com-piel-de-lobo-malbec-750ml",
+          "produto": "Vinho Cordero Com Piel De Lobo Malbec 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 49.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-chilano-carmenere-750ml",
+          "produto": "Vinho Chilano Carmenere 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 21.99,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-ventisquero-reserva-cabernet-sauvignon-750ml",
+          "produto": "Vinho Ventisquero Reserva Cabernet Sauvignon 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 44.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        },
+        {
+          "id": "vinho-esteban-martin-tinto-750ml",
+          "produto": "Vinho Esteban Martin Tinto 750ml",
+          "precoAnterior": 0,
+          "precoNovo": 29.9,
+          "status": "sem_alteracao",
+          "observacao": "Sincronização em lote"
+        }
+      ]
+    }
+  ]
+}

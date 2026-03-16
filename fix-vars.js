@@ -1,0 +1,10 @@
+const fs = require('fs');
+let html = fs.readFileSync('c:\\\\app precificador\\\\deploy-gestaosf\\\\catalogo.html', 'utf8');
+html = html.replace(/let\s+currentList\s*=\s*products;/, 'currentList = products;');
+html = html.replace(/let\s+visibleCount\s*=\s*50;/, 'visibleCount = 50;');
+html = html.replace(/let\s+currentModalId\s*=\s*null;/, 'currentModalId = null;');
+html = html.replace(/let\s+btnClass\s*=\s*'btn-add-card';/, "btnClass = 'btn-add-card';");
+html = html.replace(/let\s+btnText\s*=\s*'ADICIONAR';/, "btnText = 'ADICIONAR';");
+html = html.replace(/const\s+isPickerMode\s*=[^;]+;/, '// isPickerMode removed');
+fs.writeFileSync('c:\\\\app precificador\\\\deploy-gestaosf\\\\catalogo.html', html);
+console.log('Fixed variables');

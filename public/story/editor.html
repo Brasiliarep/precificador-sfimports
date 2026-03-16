@@ -1,0 +1,2563 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob: 'unsafe-inline'; connect-src * 'unsafe-inline' data: blob:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF Imports • Story Editor</title>
+  <style>
+    /* --- SMART STORY ORGANIZER STYLES --- */
+    #storyOrganizer {
+      position: fixed;
+      inset: 0;
+      background: #0f172a;
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    #storyOrganizer.open {
+      display: flex;
+    }
+
+    .organizer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .organizer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding-bottom: 100px;
+    }
+
+    .price-group {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 15px;
+      min-height: 200px;
+      border: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .price-group.drag-over {
+      border-color: #3b82f6;
+      background: #26354a;
+    }
+
+    .group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .group-title {
+      font-weight: 900;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .layout-sel {
+      display: flex;
+      gap: 5px;
+    }
+
+    .layout-sel button {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #94a3b8;
+      font-size: 10px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .layout-sel button.active {
+      background: #3b82f6;
+      color: #fff;
+      border-color: #3b82f6;
+    }
+
+    .product-card-mini {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 8px;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #334155;
+    }
+
+    .product-card-mini:active {
+      cursor: grabbing;
+      opacity: 0.5;
+    }
+
+    .footer-actions {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      padding: 15px 30px;
+      border-radius: 99px;
+      display: flex;
+      gap: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid #334155;
+      z-index: 2001;
+    }
+
+    .btn-action {
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .btn-back {
+      background: #334155;
+    }
+
+    #btnFloatingOrganizer {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
+      background: #8b5cf6;
+      border: none;
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 24px;
+    }
+
+    #btnFloatingOrganizer span {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ef4444;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      background: #1c1c1c;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    header .btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    header button {
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    header button.primary {
+      background: #00ff88;
+      color: #002015;
+    }
+
+    header button.warn {
+      background: #ffd400;
+      color: #201a00;
+    }
+
+    main {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .controls {
+        width: 100% !important;
+      }
+    }
+
+    .controls {
+      width: 350px;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .controls label {
+      display: block;
+      margin-top: 15px;
+      font-size: 13px;
+      font-weight: bold;
+      opacity: .8;
+    }
+
+    .controls textarea,
+    .controls input {
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      font-size: 14px;
+      outline: none;
+      background: #111;
+      color: #fff;
+    }
+
+    .controls input[type="color"] {
+      padding: 0;
+      height: 40px;
+    }
+
+    .controls .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .controls .row>* {
+      flex: 1;
+    }
+
+    .canvas-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    #canvas {
+      position: relative;
+      width: 360px;
+      height: 640px;
+      background: #000;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      touch-action: none;
+    }
+
+    #template {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .node {
+      position: absolute;
+      z-index: 10;
+      touch-action: none;
+      cursor: move;
+    }
+
+    .product-layer {
+      border: 1px dashed rgba(0, 255, 136, .3);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      display: block;
+    }
+
+    .text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      padding: 5px;
+    }
+
+    .t-name {
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .t-old {
+      text-decoration: line-through;
+      color: #aaa;
+      font-weight: 700;
+      opacity: 0.8;
+    }
+
+    .t-new {
+      color: #FFD700;
+      font-weight: 900;
+    }
+
+    .selected {
+      outline: 2px solid #00ff88;
+      outline-offset: 4px;
+      z-index: 100 !important;
+    }
+
+    .handle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #00ff88;
+      border: 3px solid #000;
+      border-radius: 50%;
+      right: -10px;
+      bottom: -10px;
+      cursor: nwse-resize;
+      display: none;
+      z-index: 1000;
+      touch-action: none;
+    }
+
+    .node:hover .handle {
+      display: block;
+      opacity: 0.5;
+    }
+
+    .selected .handle {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Oculta marcas no download */
+    #canvas.exporting .node {
+      border: none !important;
+      outline: none !important;
+    }
+
+    #canvas.exporting .handle {
+      display: none !important;
+    }
+
+    #canvas.exporting .text-group {
+      padding: 0 !important;
+      border: none !important;
+    }
+
+    #canvas.exporting .product-layer {
+      border: none !important;
+    }
+
+    /* Modal Global */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    /* Modal Picker Antigo */
+    #modalPicker .modal-content {
+      width: 90%;
+      max-width: 800px;
+      height: 80vh;
+      background: #1a1a1a;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #333;
+    }
+
+    #modalPicker .modal-header {
+      padding: 15px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      gap: 10px;
+    }
+
+    #modalPicker .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 12px;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: #00ff88;
+      transform: translateY(-3px);
+      transition: 0.2s;
+    }
+
+    .card img {
+      width: 100%;
+      height: 130px;
+      object-fit: contain;
+      background: #111;
+      border-radius: 5px;
+    }
+
+    .card p {
+      font-size: 12px;
+      margin: 8px 0 0;
+      line-height: 1.3;
+    }
+
+    .card .price {
+      color: #00ff88;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .btn-edit {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #00ff88;
+      border: 1px solid #00ff88;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      cursor: pointer;
+      z-index: 5;
+      opacity: 0;
+      transition: 0.2s;
+    }
+
+    .card:hover .btn-edit {
+      opacity: 1;
+    }
+
+    /* Modal Image Editor */
+    #modalImageEditor .modal-content {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 20px;
+      width: 90%;
+      max-width: 450px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid #333;
+    }
+
+    .dropzone {
+      border: 2px dashed #444;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      background: #111;
+      transition: 0.3s;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dropzone.dragover {
+      border-color: #00ff88;
+      background: rgba(0, 255, 136, 0.05);
+    }
+
+    .dropzone img {
+      max-width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .layout-btn.active {
+      background: #00ff88 !important;
+      color: #002015 !important;
+    }
+
+    .template-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .template-btn {
+      background: #333;
+      color: #fff;
+      border: 2px solid transparent;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 11px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      opacity: 0.6;
+    }
+
+    .template-btn:hover {
+      opacity: 1;
+      background: #444;
+    }
+
+    .template-btn.active {
+      opacity: 1;
+      background: #1e293b;
+      border-color: #00ff88;
+      color: #00ff88;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../produtos.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>SF Editor • Stories</h1>
+    <div class="btns">
+      <button class="warn" id="removeBgBtn">Remover Fundo</button>
+      <button style="background: #2563eb; color: #fff;" id="btnMyTemplates">Meus Templates</button>
+      <button style="background: #eab308; color: #111827;" id="btnPriceProof">🛡️ Prova de Preços</button>
+      <button style="background: #eab308; color: #111827;" id="btnSaveTemplate">Salvar Projeto</button>
+      <button class="primary" id="downloadBtn" data-v="v7-exact"
+        style="background:#00ff88; color:#000; font-weight:900;">Baixar PNG</button>
+    </div>
+  </header>
+
+  <!-- SMART STORY ORGANIZER OVERLAY -->
+  <div id="storyOrganizer">
+    <div class="organizer-header">
+      <h2 style="font-size: 24px; font-weight: 900;">🎬 ORGANIZADOR DE STORIES</h2>
+      <button class="btn-action btn-back" onclick="closeOrganizer()">VOLTAR PARA O EDITOR</button>
+    </div>
+
+    <div id="organizerGrid" class="organizer-grid">
+      <!-- Gerado via JS -->
+    </div>
+
+    <div class="footer-actions">
+      <div id="totalStatus"
+        style="color: #94a3b8; font-size: 11px; font-weight: bold; display: flex; align-items: center; padding-right: 15px; border-right: 1px solid #334155;">
+        0 PRODUTOS • 0 STORIES
+      </div>
+      <button class="btn-action" onclick="generateStoryList()" style="background: #8b5cf6;">CRIAR LISTA DE
+        STORIES</button>
+    </div>
+  </div>
+
+  <!-- FLOATING BUTTON -->
+  <button id="btnFloatingOrganizer" onclick="openOrganizer()">
+    🎬 <span id="pendingCount">0</span>
+  </button>
+
+  <main>
+    <section class="controls">
+      <div class="template-selector">
+        <button class="template-btn active" id="btnTplSf" onclick="switchTemplate('templatesf.png')">Templates
+          SF</button>
+        <button class="template-btn" id="btnTplOtoval" onclick="switchTemplate('templateotoval.png')">Templates
+          Otoval</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 15px;">
+        <button class="layout-btn" data-layout="1"
+          style="background: #333; color: #fff; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold;">1</button>
+        <button class="layout-btn" data-layout="2"
+          style="background: #333; color: #fff; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold;">2</button>
+        <button class="layout-btn" data-layout="4"
+          style="background: #333; color: #fff; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold;">4</button>
+        <button class="layout-btn active" data-layout="6"
+          style="background: #333; color: #fff; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold;">6</button>
+        <button class="layout-btn" data-layout="9"
+          style="background: #333; color: #fff; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold;">9</button>
+      </div>
+
+      <button id="openPickerBtn"
+        style="width:100%; background:#333; border: 1px dashed #555; padding:12px; color:#00ff88; cursor:pointer; font-weight:bold; border-radius:8px;">
+        🔍 Escolher Produto do Site
+      </button>
+
+      <label>Nome do Produto</label>
+      <textarea id="inpName" rows="2"></textarea>
+
+      <div class="row">
+        <div><label>Preço De (R$)</label><input id="inpOld" type="text" placeholder="Ex: 31,90"></div>
+        <div><label>Preço Por (R$)</label><input id="inpNew" type="text" placeholder="Ex: 16,90"></div>
+      </div>
+
+      <div style="margin-top:20px; border-top:1px solid #333; padding-top:10px;">
+        <div class="row">
+          <div><label>Tam. Nome</label><input type="number" id="fsName" value="16"></div>
+          <div><label>Tam. Preço</label><input type="number" id="fsPrice" value="22"></div>
+        </div>
+        <div class="row">
+          <div><label>Cor Nome</label><input type="color" id="clrName" value="#ffffff"></div>
+          <div><label>Cor Preço</label><input type="color" id="clrPrice" value="#FFD700"></div>
+        </div>
+      </div>
+
+      <small style="display:block; margin-top:15px; opacity:0.5; font-size:11px; text-align:center;">Dica: Arraste os
+        elementos no canvas para posicionar.</small>
+    </section>
+
+    <section class="canvas-wrap">
+      <div id="canvas" data-export-root="true">
+        <img id="template" src="templatesf.png">
+        <!-- As camadas de produtos e textos são adicionadas dinamicamente via JS -->
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="modalPicker">
+    <div class="modal-content" style="position: relative;">
+      <header class="modal-header">
+        <input type="text" id="searchWc" placeholder="Buscar produto..."
+          style="flex:1; padding:10px; background:#000; border:1px solid #444; color:#fff; border-radius:5px;">
+        <button id="btnSearchWc" class="primary">Buscar</button>
+        <button id="btnSearchGlobal"
+          style="background:#444; color:#fff; border:1px solid #666; padding:10px; border-radius:5px; cursor:pointer;"
+          title="Busca na Tabela Mãe (Novo)">🌐 Global</button>
+
+        <button id="btnAddNewManual"
+          style="background: linear-gradient(to right, #ea580c, #c2410c); color: #fff; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(234, 88, 12, 0.3); transition: transform 0.2s;"
+          title="Criar Produto Manualmente">🏪 Criar Produto Novo</button>
+
+        <button id="btnClosePicker">Fechar</button>
+      </header>
+
+      <div id="selectionCounter"
+        style="display:none; position:absolute; top:70px; left:50%; transform:translateX(-50%); background:rgba(0,255,136,0.9); color:#000; padding:8px 20px; border-radius:30px; font-weight:bold; font-size:14px; z-index:10; box-shadow:0 10px 20px rgba(0,0,0,0.5);">
+        0 / 0 Selecionados
+      </div>
+
+      <div class="modal-body">
+        <div class="grid" id="pickerGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalImageEditor">
+    <div class="modal-content">
+      <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h3 style="margin:0; font-size:16px;">🖼️ Gestão de Imagem</h3>
+        <button id="btnCloseImageEditor"
+          style="background:transparent; border:none; color:#aaa; cursor:pointer; font-size:20px;">&times;</button>
+      </header>
+      <div id="imageInputArea" style="margin-bottom: 20px;">
+        <div
+          style="background: #111; border: 2px dashed #444; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s;"
+          id="dragDropArea" ondrop="handleImageDrop(event)" ondragover="handleDragOver(event)"
+          ondragleave="handleDragLeave(event)">
+          <div style="font-size: 24px; margin-bottom: 10px;">📸</div>
+          <p style="margin: 0; color: #fff; font-weight: bold;">Arraste uma imagem aqui</p>
+          <p style="margin: 5px 0 0; color: #888; font-size: 12px;">ou clique para selecionar arquivo</p>
+          <input type="file" id="newImageFileInput" style="display: none;" accept="image/*"
+            onchange="handleNewImageUpload(event)">
+        </div>
+        <div style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
+          <label style="color: #aaa; font-size: 12px; margin: 0;">OU cole URL:</label>
+          <input type="text" id="imageUrlInput" placeholder="https://exemplo.com/imagem.jpg"
+            style="flex: 1; padding: 8px; background: #000; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 12px;">
+          <button onclick="processImageUrl()"
+            style="padding: 8px 15px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Processar</button>
+        </div>
+      </div>
+      <div id="imageDropzone" class="dropzone">
+        <img id="editorPreview" src="" alt="Preview">
+        <div id="dropText">
+          <p style="margin:0; font-size:14px;">Arraste uma imagem aqui</p>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+        <button id="btnEditorSearch"
+          style="background:#333; color:white; border:1px solid #444; border-radius:6px; cursor:pointer; padding:10px;">🔍
+          Google</button>
+        <button id="btnEditorRemoveBg"
+          style="background:#5522aa; color:white; border:none; border-radius:6px; cursor:pointer; padding:10px;">🪄
+          Remover Fundo</button>
+      </div>
+      <div style="margin-top:10px;">
+        <label style="font-size:11px; display:block; margin-bottom:5px;">Nome do Produto:</label>
+        <input type="text" id="editorName"
+          style="width:100%; padding:8px; background:#000; border:1px solid #444; color:#fff; border-radius:5px;">
+      </div>
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <div style="flex:1;">
+          <label style="font-size:11px; display:block; margin-bottom:5px;">Preço De (R$):</label>
+          <input type="text" id="editorPriceDe"
+            style="width:100%; padding:8px; background:#000; border:1px solid #444; color:#fff; border-radius:5px;">
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:11px; display:block; margin-bottom:5px;">Preço Por (R$):</label>
+          <input type="text" id="editorPricePor"
+            style="width:100%; padding:8px; background:#000; border:1px solid #444; color:#fff; border-radius:5px;">
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <label style="font-size:11px; display:block; margin-bottom:5px;">URL Direta:</label>
+        <input type="text" id="editorUrl"
+          style="width:100%; padding:8px; background:#000; border:1px solid #444; color:#fff; border-radius:5px;">
+      </div>
+      <input type="hidden" id="editorDesc">
+      <button id="btnConfirmImage" class="primary"
+        style="width:100%; margin-top:20px; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Confirmar
+        Alteração</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modalPriceProof">
+    <div class="modal-content" style="max-width: 1000px; height: 90vh;">
+      <header class="modal-header">
+        <div style="display:flex; align-items:center; gap:15px; flex:1;">
+          <h3 style="margin:0; font-size:18px;">🛡️ Prova de Preços (Histórico OCR)</h3>
+          <select id="selectProofDate"
+            style="padding:8px; background:#000; color:#fff; border:1px solid #444; border-radius:5px; font-weight:bold;">
+            <option value="">Selecione uma Data...</option>
+          </select>
+          <input type="text" id="searchProofName" placeholder="Buscar por nome do produto..."
+            style="flex:1; padding:8px; background:#000; border:1px solid #444; color:#fff; border-radius:5px;">
+        </div>
+        <button id="btnClosePriceProof"
+          style="background:#444; color:#fff; border:none; padding:10px 15px; border-radius:5px; cursor:pointer;">Fechar</button>
+      </header>
+      <div class="modal-body" style="padding:0;">
+        <table style="width:100%; border-collapse: collapse; font-size: 13px;">
+          <thead>
+            <tr style="background:#111; border-bottom:1px solid #333; text-align:left;">
+              <th style="padding:12px;">Data</th>
+              <th style="padding:12px;">Foto</th>
+              <th style="padding:12px;">Produto</th>
+              <th style="padding:12px;">Loja</th>
+              <th style="padding:12px;">Preço</th>
+              <th style="padding:12px;">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="proofTableBody">
+            <!-- Gerado via JS -->
+          </tbody>
+        </table>
+        <div id="proofLoading" style="display:none; padding:40px; text-align:center; color:#888;">
+          <span class="animate-spin" style="font-size:30px; display:block; margin-bottom:10px;">⌛</span>
+          Carregando registros...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalStoreMaster" style="z-index: 9999;">
+    <div
+      style="max-width: 900px; width: 100%; background: #111827; border: 1px solid #374151; border-radius: 16px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; max-height: 95vh; overflow-y: auto;">
+
+      <div style="text-align: center; margin-bottom: 32px;">
+        <button onclick="document.getElementById('modalStoreMaster').classList.remove('open')"
+          style="position: absolute; right: 16px; top: 16px; background: #1f2937; color: #9ca3af; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 20px; cursor: pointer;">&times;</button>
+        <h1
+          style="font-size: 32px; font-weight: bold; margin: 0; display: flex; align-items: center; justify-content: center; gap: 12px; color: #fff;">
+          🏪 STORE MASTER</h1>
+        <p style="color: #9ca3af; margin: 5px 0 0 0; font-size: 14px;">Adicionar novo produto direto ao sistema SF
+          Imports</p>
+      </div>
+
+      <div
+        style="background: #1f2937; border-radius: 12px; padding: 32px; border: 1px solid #374151; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
+              <label style="font-size: 14px; font-weight: 500; color: #fff;">🏷️ NOME DO PRODUTO *</label>
+              <button type="button" class="sm-btn-ia"
+                style="padding: 4px 12px; background: #eab308; color: #111827; font-size: 12px; font-weight: bold; border-radius: 9999px; border: none; cursor: pointer;">✨
+                Identificar Produto (IA)</button>
+            </div>
+            <input type="text" id="smNome" placeholder="Ex: VINHO TINTO CABERNET SAUVIGNON"
+              style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px;">
+          </div>
+
+          <div>
+            <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">🛒 ID
+              WOOCOMMERCE</label>
+            <input type="text" id="smIdWoo" placeholder="ID do produto no WooCommerce (Opcional)"
+              style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">💰
+                PREÇO DE *</label>
+              <input type="text" id="smPrecoDe" placeholder="R$ 189,90"
+                style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px;">
+            </div>
+            <div>
+              <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">💰
+                PREÇO POR *</label>
+              <input type="text" id="smPrecoPor" placeholder="R$ 149,90"
+                style="width: 100%; padding: 12px 16px; background: #fefce8; border: 1px solid #4b5563; border-radius: 8px; color: #000; font-weight: bold; outline: none; font-size: 14px;">
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">🍇 TIPO
+              DE UVA / 📅 SAFRA</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <input type="text" id="smUva" placeholder="Ex: Malbec"
+                style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px;">
+              <input type="text" id="smSafra" placeholder="Ex: 2022"
+                style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px;">
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">🌍
+                PAÍS</label>
+              <input type="text" id="smPais" placeholder="Ex: Chile"
+                style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px;">
+            </div>
+            <div>
+              <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">📂
+                CATEGORIA</label>
+              <select id="smTipo"
+                style="width: 100%; padding: 12px 16px; background: #374151; border: 1px solid #4b5563; border-radius: 8px; color: #fff; outline: none; font-size: 14px; height: 46px;">
+                <option value="Vinho">Vinho</option>
+                <option value="Espumante">Espumante</option>
+                <option value="Whisky">Whisky</option>
+                <option value="Outros">Outros</option>
+              </select>
+            </div>
+            <input type="hidden" id="smRegiao">
+            <textarea id="smDesc" style="display: none;"></textarea>
+          </div>
+
+          <div>
+            <label style="font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; color: #fff;">🖼️
+              IMAGEM DO PRODUTO</label>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px;">
+              <button onclick="document.getElementById('smFileInput').click()"
+                style="padding: 8px 16px; background: #2563eb; color: #fff; border-radius: 8px; font-weight: 500; border: none; cursor: pointer;">📁
+                Buscar do Desktop</button>
+              <button id="btnSmUrl"
+                style="padding: 8px 16px; background: #16a34a; color: #fff; border-radius: 8px; font-weight: 500; border: none; cursor: pointer;">🌐
+                Colar URL da Imagem</button>
+              <button id="btnSmSearchGoogle"
+                style="padding: 8px 16px; background: #9333ea; color: #fff; border-radius: 8px; font-weight: 500; border: none; cursor: pointer;">🔍
+                Pesquisar no Google</button>
+            </div>
+
+            <input type="file" id="smFileInput" accept="image/*" style="display: none;">
+
+            <div style="margin-top: 16px;">
+              <div id="smImgPlaceholder"
+                style="width: 100%; height: 160px; background: #374151; border: 1px dashed #6b7280; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
+                Nenhuma imagem</div>
+              <img id="smImgPreview"
+                style="display: none; width: 100%; height: 160px; object-fit: contain; border-radius: 8px; border: 1px solid #4b5563; background: #fff;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; text-align: center;">
+        <button id="btnSmAdd"
+          style="padding: 16px 48px; background: linear-gradient(to right, #16a34a, #059669); color: #fff; border-radius: 8px; font-weight: bold; font-size: 20px; border: none; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">📦
+          CRIAR E USAR NO STORY</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalTemplates">
+    <div class="modal-content" style="max-width: 600px; width: 90%;">
+      <header class="modal-header">
+        <h3 style="margin:0; font-size:18px;">💾 Projetos Salvos</h3>
+        <button id="btnCloseTemplates"
+          style="background:transparent; border:none; color:#aaa; cursor:pointer; font-size:24px;">&times;</button>
+      </header>
+      <div class="modal-body">
+        <div id="templatesList" style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+          <!-- Listagem via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    const state = {
+      name: "Nome do Produto", old: "", new: "R$ 00,00", imgOriginal: "", imgView: "",
+      sName: 16, sPrice: 22, cName: "#ffffff", cPrice: "#FFD700"
+    };
+
+    function dataURLToBlob(dataURL) {
+      const parts = dataURL.split(';base64,');
+      const contentType = parts[0].split(':')[1];
+      const raw = window.atob(parts[1]);
+      const rawLength = raw.length;
+      const uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], { type: contentType });
+    }
+
+    function getImagemLocal(src) {
+      if (!src) return '';
+      if (typeof src !== 'string') return src;
+
+      // Se for Base64 ou Blob URL, retorna direto
+      if (src.startsWith('data:') || src.startsWith('blob:')) return src;
+
+      // Se já for uma URL completa ou caminho absoluto conhecido, retorna direto
+      if (src.startsWith('http') ||
+        src.startsWith('/imagens%20sem%20fundo/') ||
+        src.startsWith('/imagens_produtos/') ||
+        src.startsWith('/uploads/')) {
+        return src;
+      }
+
+      // Se for apenas o nome do arquivo, tenta no diretório padrão
+      if (!src.includes('/')) {
+        return '/imagens%20sem%20fundo/' + src;
+      }
+
+      // Se for um caminho mas não começa com os diretórios conhecidos, 
+      // retorna o original para evitar quebras
+      return src;
+    }
+
+    function switchTemplate(file) {
+      const tpl = document.getElementById('template');
+      if (tpl) {
+        tpl.src = file;
+        localStorage.setItem("sf_template_file", file);
+      }
+      document.querySelectorAll('.template-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick')?.includes(file)) btn.classList.add('active');
+      });
+    }
+
+    function syncImageUpdate(newPath, productRef, slotEl, aditionalData = {}) {
+      const local = getImagemLocal(newPath);
+
+      if (productRef) {
+        if (newPath) { productRef.image = newPath; productRef.imagem = newPath; }
+        if (aditionalData.nome) productRef.nome = aditionalData.nome;
+        if (aditionalData.preco_de !== undefined) productRef.preco_de = aditionalData.preco_de;
+        if (aditionalData.preco_por !== undefined) productRef.preco_por = aditionalData.preco_por;
+      }
+
+      if (newPath) {
+        document.querySelectorAll('#pickerGrid .card').forEach(card => {
+          if (card.querySelector('p')?.innerText === productRef?.nome) {
+            const img = card.querySelector('img');
+            const placeholder = card.querySelector('.img-placeholder');
+            if (img) { img.src = local + '?t=' + Date.now(); img.style.display = 'block'; if (placeholder) placeholder.style.display = 'none'; }
+          }
+        });
+      }
+
+      const targetSlot = slotEl || window.activeImgSlot;
+      if (targetSlot) {
+        const img = targetSlot.querySelector('img') || document.getElementById('imgProd');
+        img.dataset.original = newPath;
+        img.src = local;
+        // Reset total para forçar recalculação no renderCanvas/download
+        img.removeAttribute('style');
+        img.style.opacity = 0;
+        delete img.dataset.fixed;
+        delete targetSlot.dataset.fixed;
+
+        img.onload = () => {
+          img.style.opacity = 1;
+          img.dataset.fixed = 'true';
+          targetSlot.dataset.fixed = 'true';
+        };
+      }
+
+      const index = targetSlot.dataset.index;
+      const textGroup = document.querySelector(`.text-group.node[data-index="${index}"]`);
+
+      if (textGroup && aditionalData.nome) {
+        const nameEl = textGroup.querySelector('.t-name');
+        const oldEl = textGroup.querySelector('.t-old');
+        const newEl = textGroup.querySelector('.t-new');
+
+        if (nameEl) nameEl.textContent = aditionalData.nome;
+        if (oldEl) { oldEl.textContent = aditionalData.preco_de ? 'De R$ ' + aditionalData.preco_de : ''; oldEl.style.display = aditionalData.preco_de ? 'block' : 'none'; }
+        if (newEl) { const valNew = aditionalData.preco_por || aditionalData.preco_de || ''; newEl.textContent = valNew ? 'Por R$ ' + valNew : ''; }
+
+        if (textGroup === window.activeTextGroup) {
+          state.name = aditionalData.nome;
+          state.old = aditionalData.preco_de;
+          state.new = 'R$ ' + (aditionalData.preco_por || aditionalData.preco_de || '');
+          updateUI();
+        }
+      }
+      // Logica simplificada sem layerProd
+      // Remove updateUI() daqui para evitar que o renderCanvas sobrescreva o src/dataset.fixed
+    }
+
+    function makeDraggable(el, type) {
+      let isDragging = false; let isResizing = false;
+      let startX, startY, startL, startT, startW, startH, aspect;
+
+      el.addEventListener('pointerdown', (e) => {
+        document.querySelectorAll('.node').forEach(n => n.classList.remove('selected'));
+        el.classList.add('selected');
+
+        if (e.target.classList.contains('handle')) {
+          isResizing = true; startW = el.offsetWidth; startH = el.offsetHeight; aspect = startW / startH;
+          if (type === 'txt') {
+            const nameEl = el.querySelector('.t-name'); const oldEl = el.querySelector('.t-old'); const newEl = el.querySelector('.t-new');
+            el.dataset.originalName = nameEl ? nameEl.textContent : ''; el.dataset.originalOld = oldEl ? oldEl.textContent : ''; el.dataset.originalNew = newEl ? newEl.textContent : '';
+            el.dataset.originalNameSize = nameEl ? nameEl.style.fontSize : '12px'; el.dataset.originalOldSize = oldEl ? oldEl.style.fontSize : '10px'; el.dataset.originalNewSize = newEl ? newEl.style.fontSize : '14px';
+          }
+        } else {
+          isDragging = true; startL = el.offsetLeft; startT = el.offsetTop;
+          let textGroup = null; let imgSlot = null;
+
+          if (type === 'img') { imgSlot = el; textGroup = el.nextElementSibling && el.nextElementSibling.classList.contains('text-group') ? el.nextElementSibling : null; }
+          else if (type === 'txt') { textGroup = el; imgSlot = el.previousElementSibling && el.previousElementSibling.classList.contains('product-layer') ? el.previousElementSibling : null; }
+
+          window.activeTextGroup = textGroup; window.activeImgSlot = imgSlot;
+
+          if (textGroup) {
+            const nameEl = textGroup.querySelector('.t-name') || document.getElementById('viewName');
+            const oldEl = textGroup.querySelector('.t-old') || document.getElementById('viewOld');
+            const newEl = textGroup.querySelector('.t-new') || document.getElementById('viewNew');
+            if (nameEl) { state.name = nameEl.textContent; const fs = window.getComputedStyle(nameEl).fontSize; if (fs) state.sName = parseFloat(fs); }
+            if (oldEl) { state.old = oldEl.textContent.replace('De R$ ', ''); } else { state.old = ""; }
+            if (newEl) {
+              const newText = newEl.textContent.replace('Por R$ ', '').replace('R$ ', '').trim();
+              state.new = 'R$ ' + newText;
+              const fs = window.getComputedStyle(newEl).fontSize;
+              if (fs) state.sPrice = parseFloat(fs);
+            }
+          }
+          if (imgSlot) { const img = imgSlot.querySelector('img') || document.getElementById('imgProd'); if (img && img.src) { state.imgOriginal = img.src; state.imgView = img.src; } }
+          if (textGroup || imgSlot) updateUI();
+        }
+        startX = e.clientX; startY = e.clientY;
+        el.setPointerCapture(e.pointerId); e.stopPropagation();
+      });
+
+      el.addEventListener('pointermove', (e) => {
+        if (!isDragging && !isResizing) return;
+        const dx = e.clientX - startX; const dy = e.clientY - startY;
+
+        if (isDragging) {
+          el.style.left = (startL + dx) + 'px'; el.style.top = (startT + dy) + 'px';
+        } else if (isResizing) {
+          const newW = Math.max(30, startW + dx);
+          const newH = type === 'img' ? (newW / aspect) : Math.max(20, startH + dy);
+          el.style.width = newW + 'px'; el.style.height = newH + 'px';
+          if (type === 'txt') {
+            const scaleFactor = newW / startW;
+            const nameEl = el.querySelector('.t-name'); const oldEl = el.querySelector('.t-old'); const newEl = el.querySelector('.t-new');
+            if (nameEl && el.dataset.originalName) { nameEl.textContent = el.dataset.originalName; const originalSize = parseFloat(el.dataset.originalNameSize); nameEl.style.fontSize = (originalSize * scaleFactor) + 'px'; }
+            if (oldEl && el.dataset.originalOld) { oldEl.textContent = el.dataset.originalOld; const originalSize = parseFloat(el.dataset.originalOldSize); oldEl.style.fontSize = (originalSize * scaleFactor) + 'px'; }
+            if (newEl && el.dataset.originalNew) { newEl.textContent = el.dataset.originalNew; const originalSize = parseFloat(el.dataset.originalNewSize); newEl.style.fontSize = (originalSize * scaleFactor) + 'px'; }
+          }
+        }
+      });
+
+      el.addEventListener('pointerup', (e) => {
+        if (!isDragging && !isResizing) return;
+        isDragging = false;
+        if (isResizing && type === 'txt') {
+          const nameEl = el.querySelector('.t-name'); const newEl = el.querySelector('.t-new');
+          if (nameEl) state.sName = parseFloat(window.getComputedStyle(nameEl).fontSize);
+          if (newEl) state.sPrice = parseFloat(window.getComputedStyle(newEl).fontSize);
+          updateUI();
+        }
+        isResizing = false; el.releasePointerCapture(e.pointerId);
+      });
+    }
+
+
+    function updateUI() {
+      document.getElementById('inpName').value = state.name;
+      document.getElementById('inpOld').value = state.old;
+      document.getElementById('inpNew').value = state.new;
+      document.getElementById('fsName').value = state.sName;
+      document.getElementById('fsPrice').value = state.sPrice;
+      document.getElementById('clrName').value = state.cName;
+      document.getElementById('clrPrice').value = state.cPrice;
+      renderCanvas();
+    }
+
+    function renderCanvas() {
+      const targetTextGroup = window.activeTextGroup || document.getElementById('layerText');
+      if (targetTextGroup) {
+        let viewName = targetTextGroup.querySelector('.t-name') || document.getElementById('viewName');
+        let viewOld = targetTextGroup.querySelector('.t-old') || document.getElementById('viewOld');
+        let viewNew = targetTextGroup.querySelector('.t-new') || document.getElementById('viewNew');
+
+        if (viewName) { viewName.innerText = String(state.name || ""); viewName.style.fontSize = Math.max(8, parseFloat(state.sName) || 16) + 'px'; viewName.style.color = state.cName; }
+        if (viewOld) { const oldPart = state.old ? ("De R$ " + state.old) : ""; viewOld.innerText = oldPart; viewOld.style.fontSize = (Math.max(8, parseFloat(state.sName) || 16) * 0.8) + 'px'; viewOld.style.display = oldPart ? 'block' : 'none'; }
+        if (viewNew) { let sNew = String(state.new || ""); sNew = sNew.replace('R$ R$', 'R$').trim(); const newPart = sNew.includes('R$') ? sNew : ("Por R$ " + sNew); viewNew.innerText = newPart; viewNew.style.fontSize = Math.max(10, parseFloat(state.sPrice) || 22) + 'px'; viewNew.style.color = state.cPrice; }
+      }
+
+      document.querySelectorAll('.product-layer').forEach(slot => {
+        const img = slot.querySelector('img') || document.getElementById('imgProd');
+        if (!img) return;
+        if (img.dataset.fixed === 'true' && slot.dataset.fixed === 'true') return;
+        const rawSrc = img.dataset.original || img.src;
+        if (rawSrc && rawSrc !== 'null' && !rawSrc.includes('broken')) { img.src = getImagemLocal(rawSrc); img.style.opacity = 1; }
+      });
+    }
+
+    const fieldMap = { 'inpName': 'name', 'inpOld': 'old', 'inpNew': 'new', 'fsName': 'sName', 'fsPrice': 'sPrice', 'clrName': 'cName', 'clrPrice': 'cPrice' };
+    ['inpName', 'inpOld', 'inpNew', 'fsName', 'fsPrice', 'clrName', 'clrPrice'].forEach(id => {
+      document.getElementById(id).addEventListener('input', (e) => {
+        const field = fieldMap[id]; let val = e.target.value;
+        if (id === 'fsName' || id === 'fsPrice') { val = parseFloat(val); if (isNaN(val)) val = 8; }
+        state[field] = val; renderCanvas();
+      });
+    });
+
+    let currentLayout = 6; let selectedProducts = [];
+
+    function setupLayoutButtons() {
+      const buttons = document.querySelectorAll('.layout-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const layout = parseInt(btn.dataset.layout);
+          selectLayout(layout);
+        });
+      });
+    }
+
+    function selectLayout(layout, showPicker = true) {
+      currentLayout = layout; selectedProducts = [];
+      document.querySelectorAll('.layout-btn').forEach(btn => { btn.classList.remove('active'); if (parseInt(btn.dataset.layout) === layout) btn.classList.add('active'); });
+      clearCanvas();
+      const counter = document.getElementById('selectionCounter');
+      if (layout > 1 && showPicker) { counter.style.display = 'block'; counter.innerHTML = `0 / ${layout} Selecionados`; } else { counter.style.display = 'none'; }
+
+      if (showPicker) {
+        const modal = document.getElementById('modalPicker');
+        modal.classList.add('open');
+        loadProducts("");
+      }
+    }
+
+    function clearCanvas() {
+      const canvas = document.getElementById('canvas');
+      const existingElements = canvas.querySelectorAll('.product-slot, .text-group');
+      existingElements.forEach(el => el.remove());
+      const originalProd = null; const originalText = null;
+      if (originalProd) originalProd.style.display = 'none'; if (originalText) originalText.style.display = 'none';
+      state.name = ""; state.old = ""; state.new = ""; state.imgOriginal = ""; state.imgView = "";
+    }
+
+    const modal = document.getElementById('modalPicker');
+
+    function addProductToCanvas(product, index) {
+      const canvas = document.getElementById('canvas');
+      const slot = document.createElement('div'); slot.className = 'product-slot node product-layer'; slot.dataset.index = index; slot.style.position = 'absolute'; slot.style.zIndex = (10 + index).toString(); slot.style.touchAction = 'none'; slot.style.cursor = 'move'; slot.style.overflow = 'hidden';
+      const positions = getLayoutPositions(currentLayout);
+      if (!positions || !positions[index]) return;
+      const pos = positions[index];
+
+      slot.style.left = pos.x + 'px'; slot.style.top = pos.y + 'px'; slot.style.width = pos.width + 'px'; slot.style.height = pos.height + 'px'; slot.style.border = '1px dashed rgba(0, 255, 136, .3)';
+
+      const img = document.createElement('img'); const rawSrc = product.image || product.imagem || '';
+      img.src = getImagemLocal(rawSrc);
+      img.dataset.original = rawSrc;
+      img.style.position = 'absolute';
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'contain';
+      img.style.pointerEvents = 'none';
+
+      // Garante redimensionamento correto quando a imagem carregar
+      img.onload = () => {
+        const aspect = img.naturalWidth / Math.max(1, img.naturalHeight);
+        const cW = slot.offsetWidth;
+        const cH = slot.offsetHeight;
+        const containerAspect = cW / Math.max(1, cH);
+
+        let finalW, finalH;
+        if (aspect > containerAspect) {
+          finalW = cW;
+          finalH = cW / aspect;
+        } else {
+          finalH = cH;
+          finalW = cH * aspect;
+        }
+
+        img.style.width = Math.round(finalW) + 'px';
+        img.style.height = Math.round(finalH) + 'px';
+        img.style.left = Math.round((cW - finalW) / 2) + 'px';
+        img.style.top = Math.round((cH - finalH) / 2) + 'px';
+      };
+
+      slot.appendChild(img); const handle = document.createElement('div'); handle.className = 'handle'; slot.appendChild(handle);
+
+      const textGroup = document.createElement('div'); textGroup.className = 'text-group node'; textGroup.setAttribute('data-index', index); textGroup.style.position = 'absolute'; textGroup.style.display = 'flex'; textGroup.style.flexDirection = 'column'; textGroup.style.alignItems = 'center'; textGroup.style.justifyContent = 'center'; textGroup.style.textAlign = 'center'; textGroup.style.border = '1px dashed rgba(255, 255, 255, 0.1)'; textGroup.style.padding = '5px'; textGroup.style.left = (pos.x - 10) + 'px'; textGroup.style.top = (pos.y + pos.height + 10) + 'px'; textGroup.style.width = (pos.width + 20) + 'px';
+
+      const nameDiv = document.createElement('div'); nameDiv.className = 't-name'; nameDiv.style.fontWeight = '900'; nameDiv.style.lineHeight = '1.1'; nameDiv.style.marginBottom = '2px'; nameDiv.style.color = '#ffffff'; nameDiv.textContent = product.nome || '';
+
+      let nameFontSize = 12; let priceFontSize = 14; let oldFontSize = 10;
+      switch (currentLayout) { case 1: nameFontSize = 16; priceFontSize = 18; oldFontSize = 12; break; case 2: nameFontSize = 14; priceFontSize = 16; oldFontSize = 11; break; case 4: nameFontSize = 12; priceFontSize = 14; oldFontSize = 10; break; case 6: nameFontSize = 10; priceFontSize = 12; oldFontSize = 8; break; case 9: nameFontSize = 8; priceFontSize = 10; oldFontSize = 7; break; }
+      nameDiv.style.fontSize = nameFontSize + 'px';
+
+      const oldDiv = document.createElement('div'); oldDiv.className = 't-old'; oldDiv.style.textDecoration = 'line-through'; oldDiv.style.color = '#aaa'; oldDiv.style.fontWeight = '700'; oldDiv.style.opacity = '0.8'; oldDiv.style.fontSize = oldFontSize + 'px'; oldDiv.textContent = product.preco_de ? 'De R$ ' + product.preco_de : '';
+      const newDiv = document.createElement('div'); newDiv.className = 't-new'; newDiv.style.color = '#FFD700'; newDiv.style.fontWeight = '900'; newDiv.style.fontSize = priceFontSize + 'px'; newDiv.textContent = 'Por R$ ' + (product.preco_por || product.preco_de || '');
+
+      textGroup.appendChild(nameDiv); if (product.preco_de) textGroup.appendChild(oldDiv); textGroup.appendChild(newDiv);
+      const textHandle = document.createElement('div'); textHandle.className = 'handle'; textGroup.appendChild(textHandle);
+
+      canvas.appendChild(slot); canvas.appendChild(textGroup);
+      makeDraggable(slot, 'img'); makeDraggable(textGroup, 'txt');
+    }
+
+    function getLayoutPositions(layout) {
+      const positions = [];
+      switch (layout) {
+        case 1: positions.push({ x: 60, y: 110, width: 240, height: 240 }); break;
+        case 2: positions.push({ x: 15, y: 160, width: 160, height: 160 }); positions.push({ x: 185, y: 160, width: 160, height: 160 }); break;
+        case 4: positions.push({ x: 15, y: 110, width: 140, height: 140 }); positions.push({ x: 185, y: 110, width: 140, height: 140 }); positions.push({ x: 15, y: 310, width: 140, height: 140 }); positions.push({ x: 185, y: 310, width: 140, height: 140 }); break;
+        case 6: for (let row = 0; row < 2; row++) { for (let col = 0; col < 3; col++) { positions.push({ x: 6 + col * 117, y: 104 + row * 222, width: 113, height: 218 }); } } break;
+        case 9: for (let row = 0; row < 3; row++) { for (let col = 0; col < 3; col++) { positions.push({ x: 10 + col * 115, y: 100 + row * 140, width: 85, height: 85 }); } } break;
+      }
+      return positions;
+    }
+
+    document.getElementById('btnClosePicker').onclick = () => { modal.classList.remove('open'); document.getElementById('selectionCounter').style.display = 'none'; }
+
+    // ============================================================================
+    // ABRIR STORE MASTER DIRETAMENTE DA JANELA HTML ESTÁTICA
+    // ============================================================================
+    document.getElementById('btnAddNewManual').onclick = () => {
+      modal.classList.remove('open');
+      document.getElementById('selectionCounter').style.display = 'none';
+
+      const smModal = document.getElementById('modalStoreMaster');
+      smModal.classList.add('open');
+
+      document.getElementById('smNome').value = document.getElementById('searchWc').value || "";
+      document.getElementById('smIdWoo').value = "";
+      document.getElementById('smPrecoDe').value = "";
+      document.getElementById('smPrecoPor').value = "";
+      document.getElementById('smRegiao').value = "";
+      document.getElementById('smPais').value = "";
+      document.getElementById('smSafra').value = "";
+      document.getElementById('smUva').value = "";
+      document.getElementById('smTipo').value = "Vinho";
+      document.getElementById('smDesc').value = "";
+      document.getElementById('smImgPreview').style.display = 'none';
+      document.getElementById('smImgPlaceholder').style.display = 'flex';
+      window.smImageData = null;
+    };
+
+    document.getElementById('btnSmSearchGoogle').onclick = () => {
+      const nome = document.getElementById('smNome').value;
+      if (!nome) return alert('Digite o nome do produto primeiro!');
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(nome + ' vinho garrafa fundo branco')}&tbm=isch`, '_blank');
+      alert('Pesquisa aberta em nova aba!\n\n1. Encontre a imagem desejada no Google.\n2. Clique com o botão direito nela.\n3. Escolha "Copiar endereço da imagem"\n4. Volte aqui e clique no botão verde "Colar URL".');
+    };
+
+    document.getElementById('btnSmUrl').onclick = () => {
+      const url = prompt('Cole aqui a URL (endereço) da imagem do Google:');
+      if (url) {
+        try {
+          new URL(url);
+          document.getElementById('smImgPreview').src = url;
+          document.getElementById('smImgPreview').style.display = 'block';
+          document.getElementById('smImgPlaceholder').style.display = 'none';
+          window.smImageData = url;
+        } catch (error) {
+          alert('URL inválida! Por favor, cole um link válido.');
+        }
+      }
+    };
+
+    document.getElementById('smFileInput').onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          document.getElementById('smImgPreview').src = ev.target.result;
+          document.getElementById('smImgPreview').style.display = 'block';
+          document.getElementById('smImgPlaceholder').style.display = 'none';
+          window.smImageData = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    // 🔴 AQUI ESTÁ O FIX DA CATEGORIA E DO CRACHÁ DA SEGURANÇA:
+    document.querySelector('.sm-btn-ia').onclick = async () => {
+      const query = document.getElementById('smNome').value;
+      if (!query) return alert("Digite o nome no campo para a IA pesquisar!");
+
+      const btn = document.querySelector('.sm-btn-ia');
+      btn.innerText = "⏳ Analisando...";
+
+      try {
+        const res = await fetch(`/api/identify-product?q=${encodeURIComponent(query)}`, {
+          headers: { "x-auth-token": "sf-imports-protected-2026" } // <-- CRACHÁ DA SEGURANÇA
+        });
+        const result = await res.json();
+
+        if (result.success && result.data) {
+          const d = result.data;
+          document.getElementById('smNome').value = d.nome || query;
+          document.getElementById('smPrecoDe').value = d.preco_de ? `R$ ${d.preco_de.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : "";
+          document.getElementById('smPrecoPor').value = d.preco_por ? `R$ ${d.preco_por.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : "";
+          document.getElementById('smPais').value = d.pais || "";
+          document.getElementById('smRegiao').value = d.regiao || "";
+          document.getElementById('smSafra').value = d.safra || "";
+          document.getElementById('smUva').value = d.uva || "";
+
+          // FIX: Inteligência para selecionar a categoria certa no dropdown
+          let cat = "Vinho";
+          if (d.tipo === "Espumante") cat = "Espumante";
+          else if (query.toLowerCase().includes("whisky")) cat = "Whisky";
+          else if (query.toLowerCase().includes("vodka")) cat = "Outros";
+
+          document.getElementById('smTipo').value = cat;
+          document.getElementById('smDesc').value = d.descricao || "";
+
+          if (d.imagem) {
+            document.getElementById('smImgPreview').src = d.imagem;
+            document.getElementById('smImgPreview').style.display = 'block';
+            document.getElementById('smImgPlaceholder').style.display = 'none';
+            window.smImageData = d.imagem;
+          }
+          alert("✨ Produto identificado com sucesso!");
+        } else {
+          alert(result.message || "Não consegui identificar este produto.");
+        }
+      } catch (e) {
+        alert("Erro de conexão com o robô.");
+      } finally {
+        btn.innerText = "✨ Identificar Produto (IA)";
+      }
+    };
+
+    document.getElementById('btnSmAdd').onclick = async () => {
+      const nome = document.getElementById('smNome').value;
+      const rawDe = document.getElementById('smPrecoDe').value;
+      const rawPor = document.getElementById('smPrecoPor').value;
+
+      if (!nome || (!rawDe && !rawPor)) return alert("❌ Preencha nome e pelo menos um preço!");
+
+      const btn = document.getElementById('btnSmAdd');
+      btn.innerText = "⏳ SALVANDO...";
+
+      const pDe = parseFloat(rawDe.replace('R$', '').replace(/\./g, '').replace(',', '.')) || 0;
+      const pPor = parseFloat(rawPor.replace('R$', '').replace(/\./g, '').replace(',', '.')) || pDe;
+      const pDeFinal = pDe || pPor;
+
+      const payload = {
+        nome: nome,
+        preco_de: pDeFinal,
+        preco_por: pPor,
+        imagem: window.smImageData || "",
+        descricao: document.getElementById('smDesc').value,
+        tipo: document.getElementById('smTipo').value
+      };
+
+      try {
+        await fetch('/api/persist-product', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-auth-token': 'sf-imports-protected-2026' },
+          body: JSON.stringify(payload)
+        });
+        console.log("✅ Produto salvo na tabela principal com sucesso!");
+      } catch (err) {
+        console.error("❌ Erro ao salvar no servidor:", err);
+      }
+
+      const newP = {
+        nome: nome,
+        preco_de: pDeFinal.toFixed(2).replace('.', ','),
+        preco_por: pPor.toFixed(2).replace('.', ','),
+        imagem: window.smImageData || ""
+      };
+
+      selectedProducts.push(newP);
+      addProductToCanvas(newP, selectedProducts.length - 1);
+
+      document.getElementById('modalStoreMaster').classList.remove('open');
+      btn.innerText = "📦 CRIAR E USAR NO STORY";
+
+      if (selectedProducts.length >= currentLayout) {
+        modal.classList.remove('open');
+        document.getElementById('selectionCounter').style.display = 'none';
+        selectedProducts = [];
+      }
+    };
+    // ============================================================================
+
+    document.getElementById('btnSearchWc').onclick = () => loadProducts(document.getElementById('searchWc').value);
+
+    document.getElementById('btnSearchGlobal').onclick = async () => {
+      const query = document.getElementById('searchWc').value;
+      if (!query) return alert("Digite algo para buscar globalmente");
+      const grid = document.getElementById('pickerGrid');
+      grid.innerHTML = "Buscando em TODA a base de dados... 🌐";
+      try {
+        const res = await fetch(`/api/search-all?q=${encodeURIComponent(query)}`, { headers: { "x-auth-token": "sf-imports-protected-2026" } });
+        const data = await res.json();
+        if (data && Array.isArray(data)) {
+          window.produtos_temporarios = data.map(p => ({ nome: p.name, preco_de: p.old_price, preco_por: p.price, imagem: p.image, source: p.source, category: p.category }));
+          renderFromList(window.produtos_temporarios);
+        }
+      } catch (e) { grid.innerHTML = "Erro na busca global."; }
+    };
+
+    function renderFromList(list) {
+      const grid = document.getElementById('pickerGrid');
+      grid.innerHTML = "";
+      if (list.length === 0) { grid.innerHTML = "Nenhum produto encontrado."; return; }
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        if (p.source === 'tabela-mae') card.style.border = "1px solid #D4AF37";
+        const rawSrc = p.image || p.imagem || '';
+        const localSrc = getImagemLocal(rawSrc);
+        const sourceBadge = p.source === 'tabela-mae' ? '<span style="position:absolute; top:2px; right:2px; background:#D4AF37; color:#000; font-size:8px; padding:2px 4px; border-radius:2px; font-weight:bold;">MÃE</span>' : '';
+        card.innerHTML = `
+          <button class="btn-edit">⚙️ Editar</button>
+          <div class="img-container" style="position:relative; min-height:130px;">
+            ${sourceBadge}
+            <img src="${localSrc}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="img-placeholder" style="display:none; flex-direction:column; justify-content:center; align-items:center; height:100%; text-align:center; padding:10px; background:#1e293b; border-radius:8px;">
+              <span style="font-size:24px;">📷</span><span style="font-size:11px; font-weight:bold; margin-top:5px; color:#94a3b8;">Sem Imagem</span>
+            </div>
+          </div>
+          <p>${p.nome}</p>
+          <p class="price">R$ ${p.preco_por || p.preco_de || ''}</p>
+        `;
+        card.querySelector('.btn-edit').onclick = (e) => { e.stopPropagation(); openImageEditor(p, card); };
+        card.onclick = () => {
+          selectedProducts.push(p); addProductToCanvas(p, selectedProducts.length - 1);
+          if (currentLayout > 1) { const counter = document.getElementById('selectionCounter'); counter.innerHTML = `${selectedProducts.length} / ${currentLayout} Selecionados`; counter.style.transform = "translateX(-50%) scale(1.1)"; setTimeout(() => counter.style.transform = "translateX(-50%) scale(1)", 150); }
+          if (selectedProducts.length >= currentLayout) { modal.classList.remove('open'); document.getElementById('selectionCounter').style.display = 'none'; selectedProducts = []; } else { card.style.opacity = '0.5'; card.style.pointerEvents = 'none'; }
+        };
+        grid.appendChild(card);
+      });
+    }
+
+    let searchTimeout = null; const searchInput = document.getElementById('searchWc');
+    searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { clearTimeout(searchTimeout); loadProducts(searchInput.value); } });
+    searchInput.addEventListener('input', () => { clearTimeout(searchTimeout); searchTimeout = setTimeout(() => { loadProducts(searchInput.value); }, 300); });
+
+    async function loadProducts(search) {
+      if (typeof produtos !== 'undefined' && Array.isArray(produtos)) {
+        let filtered = produtos;
+        if (search) { const s = search.toUpperCase(); filtered = produtos.filter(p => p.nome.toUpperCase().includes(s)); }
+        renderFromList(filtered.slice(0, 50).map(p => ({ nome: p.nome, preco_de: p.preco_de, preco_por: p.preco_por, image: p.image || p.imagem, imagem: p.image || p.imagem, source: 'catalogo', id: p.id })));
+      }
+    }
+
+    function handleDragOver(event) { event.preventDefault(); document.getElementById('dragDropArea').style.borderColor = '#00ff88'; document.getElementById('dragDropArea').style.background = 'rgba(0, 255, 136, 0.05)'; }
+    function handleDragLeave(event) { event.preventDefault(); document.getElementById('dragDropArea').style.borderColor = '#444'; document.getElementById('dragDropArea').style.background = '#111'; }
+    function handleImageDrop(event) { event.preventDefault(); handleDragLeave(event); const files = event.dataTransfer.files; if (files.length > 0 && files[0].type.startsWith('image/')) { processarImagemComIA(files[0]); } }
+    function handleNewImageUpload(event) { const file = event.target.files[0]; if (file && file.type.startsWith('image/')) { processarImagemComIA(file); } }
+    function processImageUrl() { const url = document.getElementById('imageUrlInput').value.trim(); if (!url) { alert('Por favor, insira uma URL válida.'); return; } processarImagemComIA(url); }
+
+    async function processarImagemComIA(imageSource) {
+      try {
+        showProcessingMessage('Removendo fundo (Processamento Local)...');
+        let fetchUrl = `/api/removebg-local`;
+        let fetchOptions = {
+          method: "POST",
+          headers: { "x-auth-token": "sf-imports-protected-2026" }
+        };
+
+        if (imageSource instanceof File) {
+          const formData = new FormData();
+          formData.append('image', imageSource);
+          fetchOptions.body = formData;
+        } else if (typeof imageSource === 'string' && imageSource.startsWith('data:')) {
+          // Converte Base64 para Blob
+          const res = await fetch(imageSource);
+          const blob = await res.blob();
+          const formData = new FormData();
+          formData.append('image', blob, 'crop.png');
+          fetchOptions.body = formData;
+        } else if (typeof imageSource === 'string' && (imageSource.startsWith('http') || imageSource.startsWith('/'))) {
+          // Se for URL, envia como JSON para o backend baixar lá
+          fetchOptions.headers['Content-Type'] = 'application/json';
+          fetchOptions.body = JSON.stringify({ url: imageSource });
+        } else {
+          throw new Error('Fonte de imagem inválida');
+        }
+
+        const response = await fetch(fetchUrl, fetchOptions);
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || 'Erro na API local');
+        const urlResultante = data.image;
+
+        // Fix: Usa a URL diretamente para evitar distorções de escala no canvas manual
+        aplicarImagemNoCanvas(urlResultante);
+      } catch (error) { alert("Erro ao remover fundo: " + error.message); } finally { hideProcessingMessage(); }
+    }
+
+    function aplicarImagemNoCanvas(urlResultante) {
+      const preview = document.getElementById('editorPreview'); preview.src = urlResultante; preview.style.display = 'block'; document.getElementById('dropText').style.display = 'none';
+      document.getElementById('editorUrl').value = urlResultante;
+      syncImageUpdate(urlResultante, currentEditingProduct, window.currentEditingCanvasLayer);
+      document.getElementById('imageUrlInput').value = ''; document.getElementById('newImageFileInput').value = '';
+    }
+
+    function showProcessingMessage(message) {
+      const overlay = document.createElement('div'); overlay.id = 'processingOverlay';
+      overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10000; color: white; font-size: 18px; font-weight: bold;`;
+      overlay.innerHTML = `<div style="text-align: center;"><div style="font-size: 48px; margin-bottom: 20px;">🤖</div><div>${message}</div></div>`;
+      document.body.appendChild(overlay);
+    }
+    function hideProcessingMessage() { const overlay = document.getElementById('processingOverlay'); if (overlay) { overlay.remove(); } }
+
+    document.getElementById('dragDropArea').addEventListener('click', () => { document.getElementById('newImageFileInput').click(); });
+
+    let currentEditingProduct = null; let currentEditingCard = null;
+    function openImageEditor(product, cardEl) {
+      currentEditingProduct = product; currentEditingCard = cardEl; window.currentEditingCanvasLayer = null;
+      const modal = document.getElementById('modalImageEditor'); const urlInp = document.getElementById('editorUrl'); const nameInp = document.getElementById('editorName'); const oldInp = document.getElementById('editorPriceDe'); const newInp = document.getElementById('editorPricePor'); const descInp = document.getElementById('editorDesc'); const preview = document.getElementById('editorPreview'); const dropText = document.getElementById('dropText');
+      modal.classList.add('open'); const src = product.image || product.imagem || ''; urlInp.value = src; nameInp.value = product.nome || ''; oldInp.value = product.preco_de || ''; newInp.value = product.preco_por || ''; descInp.value = product.descricao || product.description || '';
+      if (src) { preview.src = getImagemLocal(src); preview.style.display = 'block'; dropText.style.display = 'none'; } else { preview.src = ""; preview.style.display = 'none'; dropText.style.display = 'block'; }
+    }
+
+    function openImageEditorFromCanvas(layer) {
+      const img = layer.querySelector('img'); const textGroup = layer.parentElement.querySelector(`.text-group.node[data-index="${layer.dataset.index}"]`) || layer.nextElementSibling; const name = textGroup?.querySelector('.t-name')?.innerText || "";
+      currentEditingProduct = { nome: name, image: img.dataset.original || img.src }; currentEditingCard = null; window.currentEditingCanvasLayer = layer; window.activeImgSlot = layer;
+      const modal = document.getElementById('modalImageEditor'); const urlInp = document.getElementById('editorUrl'); const preview = document.getElementById('editorPreview'); const dropText = document.getElementById('dropText');
+      modal.classList.add('open'); urlInp.value = currentEditingProduct.image; preview.src = getImagemLocal(currentEditingProduct.image); preview.style.display = 'block'; dropText.style.display = 'none';
+    }
+
+
+    function injectCanvasDblClick() { document.querySelectorAll('.product-layer').forEach(layer => { layer.removeEventListener('dblclick', layer._dblHandler); layer._dblHandler = () => openImageEditorFromCanvas(layer); layer.addEventListener('dblclick', layer._dblHandler); }); }
+    const originalSetupLayout = setupLayoutButtons; setupLayoutButtons = function () { originalSetupLayout(); injectCanvasDblClick(); };
+    const originalAddProductToCanvas = addProductToCanvas; addProductToCanvas = function (p, index) { originalAddProductToCanvas(p, index); injectCanvasDblClick(); };
+
+    document.getElementById('btnCloseImageEditor').onclick = () => { document.getElementById('modalImageEditor').classList.remove('open'); };
+    document.getElementById('btnEditorSearch').onclick = () => { if (!currentEditingProduct) return; const q = encodeURIComponent(currentEditingProduct.nome); window.open(`https://www.google.com/search?q=${q}&tbm=isch`, '_blank'); };
+    document.getElementById('btnEditorRemoveBg').onclick = () => {
+      const url = document.getElementById('editorUrl').value;
+      if (url && (!url.startsWith('blob:') || url.startsWith('data:'))) {
+        processarImagemComIA(url);
+      } else {
+        alert('Selecione ou carregue uma imagem válida.');
+      }
+    };
+
+    document.getElementById('btnConfirmImage').onclick = () => {
+      const newUrl = document.getElementById('editorUrl').value; const newName = document.getElementById('editorName').value; const newOld = document.getElementById('editorPriceDe').value; const newNew = document.getElementById('editorPricePor').value;
+      if (currentEditingProduct) { syncImageUpdate(newUrl, currentEditingProduct, window.currentEditingCanvasLayer, { nome: newName, preco_de: newOld, preco_por: newNew }); }
+      document.getElementById('modalImageEditor').classList.remove('open');
+    };
+
+    window.onclick = (e) => { if (e.target.classList.contains('modal')) { e.target.classList.remove('open'); } };
+
+    document.getElementById('removeBgBtn').onclick = () => {
+      const targetImgSlot = window.activeImgSlot;
+      let imageUrl = "";
+      if (targetImgSlot) {
+        const img = targetImgSlot.querySelector('img') || document.getElementById('imgProd');
+        imageUrl = img?.dataset.original || img?.src || "";
+      }
+      if (!imageUrl || imageUrl.startsWith('blob:')) {
+        alert("Selecione um produto primeiro.");
+        return;
+      }
+      processarImagemComIA(imageUrl);
+    };
+
+    function fillVisibleSlots(items) {
+      if (!items || items.length === 0) return;
+      const visibleSlots = document.querySelectorAll('.product-layer:not([style*="display: none"])');
+      const visibleCount = visibleSlots.length;
+
+      items.forEach((p, idx) => {
+        if (idx >= visibleCount) return;
+        const slotIdx = Array.from(document.querySelectorAll('.product-layer')).indexOf(visibleSlots[idx]);
+
+        // Simula a seleção de produto para o slot
+        const imgRaw = p.image || p.imagem || "";
+        const img = imgRaw; // No editor estático tratamos direto
+
+        const precoDe = p.old_price || p.preco_de || "";
+        const precoPor = p.price || p.preco_por || "";
+
+        // Atualiza o estado global para este slot se o editor for multiproduto
+        // No editor estático o 'state' é compartilhado ou por slot. 
+        // Vamos atualizar o DOM diretamente para garantir o preenchimento.
+        const slotEl = visibleSlots[idx];
+        const nameEl = slotEl.parentElement.querySelector('.t-name');
+        const oldEl = slotEl.parentElement.querySelector('.t-old');
+        const newEl = slotEl.parentElement.querySelector('.t-new');
+        const imgEl = slotEl.querySelector('img');
+
+        if (nameEl) nameEl.innerText = p.name || p.nome || nameEl.innerText;
+        if (imgEl) {
+          imgEl.src = img;
+          imgEl.dataset.original = imgRaw;
+        }
+        if (oldEl) oldEl.innerText = precoDe ? (precoDe.toString().startsWith('De') ? precoDe : `De R$ ${precoDe}`) : "";
+        if (newEl) newEl.innerText = precoPor ? (precoPor.toString().startsWith('Por') ? precoPor : `Por R$ ${precoPor}`) : newEl.innerText;
+      });
+      updateUI();
+    }
+
+    document.getElementById('downloadBtn').onclick = async () => {
+      console.log('--- STARTING STORY EXPORT V11 (BLOB) ---');
+      const canvasEl = document.getElementById('canvas');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const originalText = downloadBtn.innerText;
+      downloadBtn.innerText = "⏳ Gerando...";
+      downloadBtn.disabled = true;
+
+      try {
+        const hc = await html2canvas(canvasEl, {
+          backgroundColor: '#000000',
+          useCORS: true,
+          allowTaint: false,
+          scale: 2,
+          logging: true,
+          imageTimeout: 30000,
+          onclone: (clonedDoc) => {
+            console.log('CLONE DEBUG V11: Document cloned.');
+            const canvasClone = clonedDoc.getElementById('canvas');
+            if (!canvasClone) {
+              console.error('CLONE ERROR: Canvas element not found in clone!');
+              return;
+            }
+
+            // Força visibilidade total e imediata no clone para garantir captura
+            canvasClone.style.display = 'block';
+            canvasClone.style.visibility = 'visible';
+            canvasClone.style.opacity = '1';
+            canvasClone.style.position = 'relative';
+            canvasClone.style.overflow = 'hidden';
+
+            const template = canvasClone.querySelector('#template');
+            if (template) {
+              template.style.display = 'block';
+              template.style.visibility = 'visible';
+              template.style.opacity = '1';
+              template.style.position = 'absolute';
+              template.style.inset = '0';
+            }
+
+            // Corrige Proporções Manualmente no Clone
+            const productLayers = canvasClone.querySelectorAll('.product-layer');
+            productLayers.forEach((layer) => {
+              layer.style.visibility = 'visible';
+              layer.style.display = 'block';
+              layer.style.border = 'none';
+              layer.style.outline = 'none';
+              layer.style.overflow = 'hidden';
+              layer.style.zIndex = (10 + parseInt(layer.dataset.index || 0)).toString();
+
+              const img = layer.querySelector('img');
+              if (img) {
+                // Força o carregamento/visibilidade da imagem no clone
+                img.style.display = 'block';
+                img.style.visibility = 'visible';
+                img.style.opacity = '1';
+
+                const nW = img.naturalWidth || 1;
+                const nH = img.naturalHeight || 1;
+                const aspect = nW / nH;
+
+                const cW = layer.offsetWidth;
+                const cH = layer.offsetHeight;
+                const containerAspect = cW / Math.max(1, cH);
+
+                let finalW, finalH;
+                if (aspect > containerAspect) {
+                  finalW = cW;
+                  finalH = cW / aspect;
+                } else {
+                  finalH = cH;
+                  finalW = cH * aspect;
+                }
+
+                img.style.position = 'absolute';
+                img.style.width = Math.round(finalW) + 'px';
+                img.style.height = Math.round(finalH) + 'px';
+                img.style.left = Math.round((cW - finalW) / 2) + 'px';
+                img.style.top = Math.round((cH - finalH) / 2) + 'px';
+                img.style.objectFit = 'contain';
+              }
+            });
+
+            // Limpa UI no clone
+            clonedDoc.querySelectorAll('.handle, .pick-overlay, .pick-btn').forEach(el => el.style.display = 'none');
+            clonedDoc.querySelectorAll('.node').forEach(n => {
+              n.style.border = 'none';
+              n.style.outline = 'none';
+              n.style.boxShadow = 'none';
+            });
+          }
+        });
+
+        const dataURL = hc.toDataURL('image/png');
+        console.log('V11 DataURL size:', dataURL.length);
+
+        if (dataURL.length < 10000) {
+          alert('ERRO: O arquivo gerado parece estar vazio. Tente novamente em alguns segundos.');
+          return;
+        }
+
+        const fileName = `sf-story-${Date.now()}.png`;
+        const blob = dataURLToBlob(dataURL);
+        const blobURL = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = blobURL;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+
+        setTimeout(() => {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(blobURL);
+          console.log('Download V11 complete:', fileName);
+        }, 1500);
+
+      } catch (err) {
+        console.error('V11 EXPORT ERROR:', err);
+        alert('Erro ao exportar: ' + err.message);
+      } finally {
+        downloadBtn.innerText = originalText;
+        downloadBtn.disabled = false;
+      }
+    };
+
+    window.onload = () => {
+      const tpl = localStorage.getItem("sf_template_file"); if (tpl) switchTemplate(tpl);
+      const rawP = localStorage.getItem("sf_pending_product");
+      if (rawP && rawP !== "null") {
+        const p = JSON.parse(rawP); state.name = p.name; state.imgOriginal = p.image || p.imagem || ""; state.imgView = p.image || p.imagem || ""; state.old = p.regular_price || ""; state.new = p.price || ""; localStorage.removeItem("sf_pending_product");
+      } else { document.getElementById('layerProd').style.display = 'none'; document.getElementById('layerText').style.display = 'none'; state.name = ""; state.old = ""; state.new = ""; state.imgOriginal = ""; state.imgView = ""; }
+      setupLayoutButtons(); updateUI();
+      selectLayout(6, false); // Layout padrão: 6 produtos
+
+      async function carregarProdutosDoServidor() {
+        try {
+          const res = await fetch('/api/catalogo-data', { headers: { "x-auth-token": "sf-imports-protected-2026" } });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.length > 0) {
+              const produtosMapeados = data.map(p => {
+                const parsePrice = (val) => { if (!val || typeof val !== 'string') return 0; const clean = val.replace(/\./g, '').replace(',', '.').replace(/[^\d.]/g, ''); return parseFloat(clean) || 0; };
+                return { nome: p.name, preco_de: parsePrice(p.old_price), preco_por: parsePrice(p.price), imagem: p.image || '', link: p.link || '' };
+              });
+              const normalizeName = (name) => { if (!name) return ''; return name.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim(); };
+              if (produtosMapeados.length > 0) {
+                let libProdutos = []; try { libProdutos = produtos; } catch (e) { libProdutos = window.produtos || []; }
+                if (!libProdutos) libProdutos = [];
+                if (typeof produtos === 'undefined') window.produtos = libProdutos;
+                produtosMapeados.forEach(pSrv => {
+                  const srvNorm = normalizeName(pSrv.nome);
+                  if (Array.isArray(libProdutos)) {
+                    const idx = libProdutos.findIndex(p => p && p.nome && normalizeName(p.nome) === srvNorm);
+                    if (idx !== -1) { if (pSrv.imagem) { libProdutos[idx].image = pSrv.imagem; libProdutos[idx].imagem = pSrv.imagem; } if (pSrv.preco_de) libProdutos[idx].preco_de = pSrv.preco_de; if (pSrv.preco_por) libProdutos[idx].preco_por = pSrv.preco_por; if (pSrv.link) libProdutos[idx].link = pSrv.link; } else { libProdutos.push(pSrv); }
+                  }
+                });
+                loadProducts();
+              }
+            }
+          }
+        } catch (err) { console.error(err); }
+      }
+      carregarProdutosDoServidor();
+      document.getElementById('openPickerBtn').onclick = () => { selectLayout(1); };
+
+      // ============================================================================
+      // LOGICA DE TEMPLATES (SALVAR / CARREGAR)
+      // ============================================================================
+      document.getElementById('btnSaveTemplate').onclick = async () => {
+        // Automatic Name with Date/Time
+        const now = new Date();
+        const dateStr = now.toLocaleDateString().replace(/\//g, '-');
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+        const defaultName = `Story-${dateStr}-${timeStr}`;
+
+        const name = prompt("Nome do projeto:", defaultName);
+        if (!name) return;
+
+        const layers = [];
+        document.querySelectorAll('.node').forEach(node => {
+          const isProd = node.classList.contains('product-layer');
+          const imgEl = node.querySelector('img');
+          const nameEl = node.querySelector('.t-name');
+          const oldEl = node.querySelector('.t-old');
+          const newEl = node.querySelector('.t-new');
+
+          layers.push({
+            type: isProd ? 'product' : 'text',
+            index: node.dataset.index,
+            x: node.style.left,
+            y: node.style.top,
+            width: node.style.width,
+            height: node.style.height,
+
+            image: imgEl ? imgEl.dataset.original || imgEl.src : "",
+            name: nameEl ? nameEl.textContent : "",
+            nameSize: nameEl ? nameEl.style.fontSize : "",
+            nameColor: nameEl ? nameEl.style.color : "",
+
+            old: oldEl ? oldEl.textContent : "",
+            oldSize: oldEl ? oldEl.style.fontSize : "",
+            oldDisplay: oldEl ? oldEl.style.display : "none",
+
+            new: newEl ? newEl.textContent : "",
+            newSize: newEl ? newEl.style.fontSize : "",
+            newColor: newEl ? newEl.style.color : ""
+          });
+        });
+
+        const payload = {
+          name: name,
+          templateFile: document.getElementById('template').src.split('/').pop(),
+          layout: currentLayout,
+          layers: layers
+        };
+
+        try {
+          const res = await fetch('/api/story-templates', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-auth-token': 'sf-imports-protected-2026' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) {
+            alert("✅ Projeto '" + name + "' salvo com sucesso!");
+          } else {
+            const errData = await res.json();
+            alert("❌ Erro ao salvar projeto: " + (errData.error || res.statusText));
+          }
+        } catch (err) {
+          console.error("Erro no fetch:", err);
+          alert("❌ Erro de conexão ao salvar.");
+        }
+      };
+
+      document.getElementById('btnMyTemplates').onclick = () => {
+        loadSavedTemplates();
+        document.getElementById('modalTemplates').classList.add('open');
+      };
+
+      document.getElementById('btnCloseTemplates').onclick = () => {
+        document.getElementById('modalTemplates').classList.remove('open');
+      };
+
+      async function loadSavedTemplates() {
+        const apiBase = '';
+
+        const list = document.getElementById('templatesList');
+        list.innerHTML = "Carregando...";
+        try {
+          const res = await fetch(`${apiBase}/api/story-templates`, {
+            headers: { 'x-auth-token': 'sf-imports-protected-2026' }
+          });
+          const data = await res.json();
+          list.innerHTML = "";
+          if (data.length === 0) {
+            list.innerHTML = "<p style='text-align:center; opacity:0.5;'>Nenhum projeto salvo.</p>";
+            return;
+          }
+          data.forEach(tpl => {
+            const item = document.createElement('div');
+            item.style.cssText = "background:#1e293b; padding:15px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; border:1px solid #334155;";
+            item.innerHTML = `
+              <div>
+                <strong style="display:block; color:#00ff88;">${tpl.name}</strong>
+                <small style="opacity:0.6;">Layout: ${tpl.layout} | ${new Date(tpl.updatedAt).toLocaleDateString()}</small>
+              </div>
+              <button style="background:#00ff88; color:#000; border:none; padding:8px 15px; border-radius:5px; font-weight:bold; cursor:pointer;">Abrir</button>
+            `;
+            item.onclick = () => {
+              applySavedTemplate(tpl);
+              document.getElementById('modalTemplates').classList.remove('open');
+            };
+            list.appendChild(item);
+          });
+        } catch (err) {
+          list.innerHTML = "Erro ao carregar.";
+        }
+      }
+
+      function applySavedTemplate(tpl) {
+        // Switch background template
+        if (tpl.templateFile) switchTemplate(tpl.templateFile);
+
+        // Setup layout and clear current
+        currentLayout = tpl.layout || 1;
+        clearCanvas();
+
+        const canvas = document.getElementById('canvas');
+
+        tpl.layers.forEach(l => {
+          if (l.type === 'product') {
+            const slot = document.createElement('div');
+            slot.className = 'product-slot node product-layer';
+            slot.dataset.index = l.index;
+            slot.style.position = 'absolute';
+            slot.style.left = l.x;
+            slot.style.top = l.y;
+            slot.style.width = l.width;
+            slot.style.height = l.height;
+            slot.style.border = '1px dashed rgba(0, 255, 136, .3)';
+
+            const img = document.createElement('img');
+            img.src = getImagemLocal(l.image);
+            img.dataset.original = l.image;
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'contain';
+            img.style.display = 'block';
+
+            slot.appendChild(img);
+            const handle = document.createElement('div');
+            handle.className = 'handle';
+            slot.appendChild(handle);
+            canvas.appendChild(slot);
+            makeDraggable(slot, 'img');
+          } else if (l.type === 'text') {
+            const textGroup = document.createElement('div');
+            textGroup.className = 'text-group node';
+            textGroup.dataset.index = l.index;
+            textGroup.style.position = 'absolute';
+            textGroup.style.left = l.x;
+            textGroup.style.top = l.y;
+            textGroup.style.width = l.width;
+            textGroup.style.display = 'flex';
+            textGroup.style.flexDirection = 'column';
+            textGroup.style.alignItems = 'center';
+            textGroup.style.justifyContent = 'center';
+            textGroup.style.textAlign = 'center';
+            textGroup.style.border = '1px dashed rgba(255, 255, 255, 0.1)';
+            textGroup.style.padding = '5px';
+
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 't-name';
+            nameDiv.style.fontWeight = '900';
+            nameDiv.style.lineHeight = '1.1';
+            nameDiv.style.marginBottom = '2px';
+            nameDiv.style.color = l.nameColor || '#ffffff';
+            nameDiv.style.fontSize = l.nameSize || '16px';
+            nameDiv.textContent = l.name;
+
+            const oldDiv = document.createElement('div');
+            oldDiv.className = 't-old';
+            oldDiv.style.textDecoration = 'line-through';
+            oldDiv.style.color = '#aaa';
+            oldDiv.style.fontWeight = '700';
+            oldDiv.style.opacity = '0.8';
+            oldDiv.style.fontSize = l.oldSize || '12px';
+            oldDiv.style.display = l.oldDisplay || 'none';
+            oldDiv.textContent = l.old;
+
+            const newDiv = document.createElement('div');
+            newDiv.className = 't-new';
+            newDiv.style.color = l.newColor || '#FFD700';
+            newDiv.style.fontWeight = '900';
+            newDiv.style.fontSize = l.newSize || '22px';
+            newDiv.textContent = l.new;
+
+            textGroup.appendChild(nameDiv);
+            textGroup.appendChild(oldDiv);
+            textGroup.appendChild(newDiv);
+
+            const textHandle = document.createElement('div');
+            textHandle.className = 'handle';
+            textGroup.appendChild(textHandle);
+
+            canvas.appendChild(textGroup);
+            makeDraggable(textGroup, 'txt');
+          }
+        });
+
+        injectCanvasDblClick();
+        alert("✅ Projeto '" + tpl.name + "' carregado!");
+      }
+
+      window.applySavedTemplate = applySavedTemplate;
+      // ============================================================================
+
+      document.getElementById('openPickerBtn').onclick = () => { selectLayout(1); };
+    };
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAINEL OCR STORIES — aparece quando há produtos do OCR
+  ════════════════════════════════════════════════════════════════ -->
+  <div id="ocrStoriesPanel"
+    style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.95); z-index:9000; overflow-y:auto; font-family:'Segoe UI',sans-serif;">
+    <div style="max-width:900px; margin:0 auto; padding:32px 16px;">
+      <!-- Header -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
+        <div>
+          <h1 style="color:#fff; font-size:28px; font-weight:900; letter-spacing:-1px; margin:0;">🎬 CRIAR STORIES</h1>
+          <p style="color:#64748b; font-size:12px; margin:4px 0 0; font-weight:700; text-transform:uppercase; letter-spacing:2px;"
+            id="ocrPainelSubtitle">0 produtos selecionados</p>
+        </div>
+        <button onclick="document.getElementById('ocrStoriesPanel').style.display='none'"
+          style="background:#1e293b; border:2px solid #334155; color:#94a3b8; padding:10px 20px; border-radius:14px; font-weight:900; font-size:13px; cursor:pointer; letter-spacing:1px;">✕
+          FECHAR</button>
+      </div>
+
+      <!-- Escolher layout -->
+      <div style="background:#0f172a; border:1px solid #1e293b; border-radius:24px; padding:24px; margin-bottom:24px;">
+        <p
+          style="color:#94a3b8; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:2px; margin:0 0 16px;">
+          Layout do Story</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button onclick="ocrSetLayout(1)" id="ocrBtn1" class="ocr-layout-btn"
+            style="flex:1; min-width:70px; padding:14px 8px; background:#1e293b; border:2px solid #334155; color:#94a3b8; border-radius:16px; font-weight:900; font-size:14px; cursor:pointer; transition:all .2s;">1</button>
+          <button onclick="ocrSetLayout(2)" id="ocrBtn2" class="ocr-layout-btn"
+            style="flex:1; min-width:70px; padding:14px 8px; background:#1e293b; border:2px solid #334155; color:#94a3b8; border-radius:16px; font-weight:900; font-size:14px; cursor:pointer; transition:all .2s;">2</button>
+          <button onclick="ocrSetLayout(4)" id="ocrBtn4" class="ocr-layout-btn"
+            style="flex:1; min-width:70px; padding:14px 8px; background:#1e293b; border:2px solid #334155; color:#94a3b8; border-radius:16px; font-weight:900; font-size:14px; cursor:pointer; transition:all .2s;">4</button>
+          <button onclick="ocrSetLayout(6)" id="ocrBtn6" class="ocr-layout-btn"
+            style="flex:1; min-width:70px; padding:14px 8px; background:#1e293b; border:2px solid #334155; color:#94a3b8; border-radius:16px; font-weight:900; font-size:14px; cursor:pointer; transition:all .2s;">6</button>
+          <button onclick="ocrSetLayout(9)" id="ocrBtn9" class="ocr-layout-btn"
+            style="flex:1; min-width:70px; padding:14px 8px; background:#1e293b; border:2px solid #334155; color:#94a3b8; border-radius:16px; font-weight:900; font-size:14px; cursor:pointer; transition:all .2s;">9</button>
+        </div>
+        <p id="ocrLayoutDica" style="color:#475569; font-size:11px; margin:12px 0 0; font-weight:600;">Escolha quantos
+          produtos por story</p>
+      </div>
+
+      <!-- Lista de grupos de stories -->
+      <div id="ocrStoriesGrupos" style="display:flex; flex-direction:column; gap:16px;">
+        <!-- preenchido por JS -->
+      </div>
+
+      <!-- Botão criar todos -->
+      <div style="margin-top:24px;">
+        <button onclick="ocrCriarProximo()" id="ocrBtnCriar"
+          style="width:100%; padding:18px; background:linear-gradient(135deg,#7c3aed,#4f46e5); border:none; color:#fff; border-radius:20px; font-weight:900; font-size:16px; cursor:pointer; letter-spacing:1px; text-transform:uppercase; box-shadow:0 8px 32px rgba(124,58,237,.3);">
+          🎬 ABRIR PRIMEIRO STORY NO EDITOR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .ocr-layout-btn:hover {
+      background: #334155 !important;
+      color: #fff !important;
+      border-color: #4f46e5 !important;
+    }
+
+    .ocr-layout-btn.active {
+      background: #4f46e5 !important;
+      color: #fff !important;
+      border-color: #7c3aed !important;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, .4);
+    }
+
+    .ocr-produto-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all .2s;
+    }
+
+    .ocr-produto-card:hover {
+      border-color: #4f46e5;
+      background: #1e293b;
+    }
+
+    .ocr-produto-card.selecionado {
+      border-color: #7c3aed !important;
+      background: #1e1040 !important;
+    }
+
+    .ocr-grupo-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 20px;
+    }
+  </style>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // OCR STORIES ENGINE
+    // ═══════════════════════════════════════════════════════════════
+    /* --- SMART STORY ORGANIZER LOGIC --- */
+    let organizerGroups = [
+      { id: 'g1', name: 'Acessível (Até R$49)', min: 0, max: 49.99, products: [], layout: 9, color: 'emerald' },
+      { id: 'g2', name: 'Médio (R$50-R$99)', min: 50, max: 99.99, products: [], layout: 6, color: 'blue' },
+      { id: 'g3', name: 'Premium (R$100-R$199)', min: 100, max: 199.99, products: [], layout: 4, color: 'amber' },
+      { id: 'g4', name: 'Alto (R$200-R$499)', min: 200, max: 499.99, products: [], layout: 2, color: 'orange' },
+      { id: 'g5', name: 'Luxo (R$500+)', min: 500, max: 999999, products: [], layout: 1, color: 'red' }
+    ];
+
+    let currentStoryList = [];
+    let activeStoryIndex = -1;
+
+    function initOrganizer() {
+      // 1. Tenta carregar progresso salvo (grupos editados)
+      const savedGroups = localStorage.getItem('sf_organizer_groups');
+      if (savedGroups) {
+        organizerGroups = JSON.parse(savedGroups);
+        renderOrganizer();
+        openOrganizer();
+        return;
+      }
+
+      // 2. Se não houver progresso, usa os selecionados do OCR
+      const saved = localStorage.getItem('ocr_stories_selecionados');
+      if (!saved) return;
+
+      const rawProducts = JSON.parse(saved);
+      // Reset groups
+      organizerGroups.forEach(g => g.products = []);
+
+      // Auto Grouping
+      rawProducts.forEach(p => {
+        const price = parseFloat(p.sf_por || p.milao_por || 0);
+        const group = organizerGroups.find(g => price >= g.min && price <= g.max) || organizerGroups[2];
+        group.products.push(p);
+      });
+
+      renderOrganizer();
+      openOrganizer();
+    }
+
+    function renderOrganizer() {
+      const grid = document.getElementById('organizerGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      // SALVAR PROGRESSO AUTOMATICAMENTE
+      localStorage.setItem('sf_organizer_groups', JSON.stringify(organizerGroups));
+
+      let totalP = 0;
+      let totalS = 0;
+
+      organizerGroups.forEach(group => {
+        // Chunking products based on group.layout (or default 9)
+        const chunkSize = group.layout || 9;
+        const products = group.products;
+        totalP += products.length;
+
+        for (let i = 0; i < products.length; i += chunkSize) {
+          const chunk = products.slice(i, i + chunkSize);
+          const chunkIndex = (i / chunkSize) + 1;
+          const storiesCountInChunk = 1;
+          totalS += 1;
+
+          const groupDiv = document.createElement('div');
+          groupDiv.className = `price-group border-${group.color}-500/30`;
+          groupDiv.style.minWidth = "280px";
+          groupDiv.id = `${group.id}_${chunkIndex}`;
+          groupDiv.ondragover = e => { e.preventDefault(); groupDiv.classList.add('drag-over'); };
+          groupDiv.ondragleave = () => groupDiv.classList.remove('drag-over');
+          groupDiv.ondrop = e => handleDrop(e, group.id); // Drop always goes to price group, we'll append
+
+          groupDiv.innerHTML = `
+            <div class="group-header">
+              <div>
+                <div class="group-title text-${group.color}-400">${group.name} ${products.length > chunkSize ? `#${chunkIndex}` : ''}</div>
+                <div style="font-size: 10px; color: #64748b; font-weight: bold;">${chunk.length} ITENS</div>
+              </div>
+              ${chunkIndex === 1 ? `
+              <div class="layout-sel">
+                ${[1, 2, 4, 6, 9].map(num => `
+                  <button class="${group.layout == num ? 'active' : ''}" onclick="setGroupLayout('${group.id}', ${num})">${num}</button>
+                `).join('')}
+              </div>` : ''}
+            </div>
+            <div class="products-container" style="min-height: 50px;">
+              ${chunk.map((p, idxInside) => {
+            const globalIdx = i + idxInside;
+            return `
+                <div class="product-card-mini" draggable="true" ondragstart="handleDragStart(event, '${group.id}', ${globalIdx})">
+                  <div style="width: 32px; height: 32px; background: #1e293b; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink:0;">
+                    ${p.imagem ? `<img src="${getImagemLocal(p.imagem)}" style="width: 100%; height: 100%; object-fit: contain;">` : '🍷'}
+                  </div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 10px; font-weight: 900; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase;">${p.nome}</div>
+                    <div style="font-size: 9px; font-weight: bold; color: #3b82f6;">R$ ${Number(p.sf_por || p.milao_por).toFixed(2)}</div>
+                  </div>
+                  <button onclick="removeProductFromOrganizer('${group.id}', ${globalIdx})" style="background:none; border:none; color:#ef4444; cursor:pointer; padding:4px; opacity:0.6;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">✕</button>
+                </div>`;
+          }).join('')}
+            </div>
+          `;
+          grid.appendChild(groupDiv);
+        }
+      });
+
+      const totalStatus = document.getElementById('totalStatus');
+      const pendingCount = document.getElementById('pendingCount');
+      if (totalStatus) totalStatus.innerText = `${totalP} PRODUTOS • ${totalS} STORIES`;
+      if (pendingCount) {
+        const doneCount = currentStoryList.filter(s => s.done).length;
+        pendingCount.innerText = totalS - doneCount;
+      }
+    }
+
+    let dragData = null;
+    function handleDragStart(e, groupId, idx) {
+      dragData = { groupId, idx };
+    }
+
+    function handleDrop(e, targetGroupId) {
+      e.preventDefault();
+      const el = document.getElementById(targetGroupId);
+      if (el) el.classList.remove('drag-over');
+      if (!dragData) return;
+
+      const sourceGroup = organizerGroups.find(g => g.id === dragData.groupId);
+      const targetGroup = organizerGroups.find(g => g.id === targetGroupId);
+
+      const [product] = sourceGroup.products.splice(dragData.idx, 1);
+      targetGroup.products.push(product);
+
+      dragData = null;
+      renderOrganizer();
+    }
+
+    function setGroupLayout(groupId, num) {
+      const g = organizerGroups.find(g => g.id === groupId);
+      if (g) {
+        g.layout = num;
+        renderOrganizer();
+      }
+    }
+
+    function removeProductFromOrganizer(groupId, idx) {
+      const g = organizerGroups.find(g => g.id === groupId);
+      if (g) {
+        g.products.splice(idx, 1);
+        renderOrganizer();
+      }
+    }
+
+    function openOrganizer() {
+      const org = document.getElementById('storyOrganizer');
+      const btn = document.getElementById('btnFloatingOrganizer');
+      if (org) org.classList.add('open');
+      if (btn) btn.style.display = 'flex';
+    }
+
+    function closeOrganizer() {
+      const org = document.getElementById('storyOrganizer');
+      if (org) org.classList.remove('open');
+    }
+
+    function generateStoryList() {
+      currentStoryList = [];
+      organizerGroups.forEach(group => {
+        for (let i = 0; i < group.products.length; i += group.layout) {
+          currentStoryList.push({
+            layout: group.layout,
+            products: group.products.slice(i, i + group.layout),
+            done: false
+          });
+        }
+      });
+
+      renderStoryListModal();
+    }
+
+    function renderStoryListModal() {
+      const existing = document.getElementById('modalStoryList');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.className = 'modal open';
+      modal.id = 'modalStoryList';
+      modal.style.zIndex = '3000';
+
+      modal.innerHTML = `
+        <div class="modal-content" style="max-width: 550px; width: 95%; max-height: 85vh; overflow-y: auto;">
+          <header class="modal-header" style="position: sticky; top: 0; background: #1a1a1a; z-index: 10;">
+            <div>
+                <h3 style="margin:0; font-size: 18px;">📋 LISTA DE STORIES PRONTOS</h3>
+                <div style="display: flex; gap: 15px; margin-top: 8px;">
+                    <label style="display: flex; align-items: center; gap: 8px; color: #fbbf24; font-weight: 900; font-size: 12px; cursor: pointer;">
+                        <input type="checkbox" id="modeOtoval" style="width: 18px; height: 18px;"> MODO OTOVAL (+R$ 10)
+                    </label>
+                </div>
+            </div>
+            <button onclick="document.getElementById('modalStoryList').remove()" style="background:transparent; border:none; color:#aaa; cursor:pointer; font-size:24px;">&times;</button>
+          </header>
+          <div class="modal-body" style="padding: 20px;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              ${currentStoryList.map((s, idx) => `
+                <div style="background: #0f172a; padding: 15px; border-radius: 12px; border: 1px solid ${s.done ? '#10b981' : '#1e293b'}; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-weight: 900; font-size: 12px; color: ${s.done ? '#10b981' : '#fff'};">STORY ${idx + 1} — ${s.layout} PRODUTOS</div>
+                    <div style="font-size: 10px; color: #64748b; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        ${s.products.map(p => p.nome.split(' ')[0]).join(', ')}...
+                    </div>
+                  </div>
+                  <button class="btn-action" style="background: ${s.done ? '#065f46' : '#3b82f6'}; flex-shrink: 0; margin-left: 15px;" onclick="openStoryInEditor(${idx})">
+                    ${s.done ? '✓ REABRIR' : '▶ ABRIR EDITOR'}
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function openStoryInEditor(idx) {
+      const isOtoval = document.getElementById('modeOtoval')?.checked;
+      activeStoryIndex = idx;
+      const story = currentStoryList[idx];
+
+      // 1. Configura Layout
+      selectLayout(story.layout, false);
+      clearCanvas(); // Limpa antes de carregar o novo
+
+      // 2. Preenche o canvas
+      story.products.forEach((p, pIdx) => {
+        let pDe = parseFloat(p.sf_de || p.milao_de || 0);
+        let pPor = parseFloat(p.sf_por || p.milao_por || 0);
+
+        if (isOtoval) {
+          pDe += 10;
+          pPor += 10;
+        }
+
+        const normalizedProduct = {
+          ...p,
+          preco_de: pDe.toFixed(2).replace('.', ','),
+          preco_por: pPor.toFixed(2).replace('.', ',')
+        };
+        addProductToCanvas(normalizedProduct, pIdx);
+      });
+
+      // 3. Status e UI
+      story.done = true;
+      const modal = document.getElementById('modalStoryList');
+      if (modal) modal.remove();
+      closeOrganizer();
+
+      const remaining = currentStoryList.filter(s => !s.done).length;
+      const countEl = document.getElementById('pendingCount');
+      if (countEl) countEl.innerText = remaining;
+    }
+
+    // --- LÓGICA PROVA DE PREÇOS (HISTÓRICO) ---
+    const modalPriceProof = document.getElementById('modalPriceProof');
+    const selectProofDate = document.getElementById('selectProofDate');
+    const searchProofName = document.getElementById('searchProofName');
+    const proofTableBody = document.getElementById('proofTableBody');
+    const proofLoading = document.getElementById('proofLoading');
+    let allProofItems = []; // Itens da data selecionada
+
+    async function loadProofDates() {
+      try {
+        const res = await fetch('/api/historico-ocr');
+        const dates = await res.json();
+        selectProofDate.innerHTML = '<option value="">Selecione uma Data...</option>';
+        dates.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = new Date(d).toLocaleDateString('pt-BR');
+          selectProofDate.appendChild(opt);
+        });
+      } catch (e) { console.error('Erro ao carregar datas:', e); }
+    }
+
+    async function loadProofRecords(date) {
+      if (!date) {
+        allProofItems = [];
+        renderProofTable();
+        return;
+      }
+      proofLoading.style.display = 'block';
+      proofTableBody.innerHTML = '';
+      try {
+        const res = await fetch(`/api/historico-ocr/${date}`);
+        allProofItems = await res.json();
+        renderProofTable();
+      } catch (e) {
+        console.error('Erro ao carregar registros:', e);
+      } finally {
+        proofLoading.style.display = 'none';
+      }
+    }
+
+    async function renderProofTable(isGlobalSearch = false) {
+      const term = searchProofName.value.toLowerCase().trim();
+
+      let itemsToRender = allProofItems;
+
+      if (isGlobalSearch && term.length > 2) {
+        proofLoading.style.display = 'block';
+        try {
+          const res = await fetch(`/api/historico-ocr-search?q=${encodeURIComponent(term)}`);
+          itemsToRender = await res.json();
+        } catch (e) { console.error(e); }
+        finally { proofLoading.style.display = 'none'; }
+      } else {
+        itemsToRender = allProofItems.filter(item =>
+          item.nome.toLowerCase().includes(term) || (item.loja || '').toLowerCase().includes(term)
+        );
+      }
+
+      proofTableBody.innerHTML = itemsToRender.map(item => `
+        <tr style="border-bottom:1px solid #222; hover:background:#1e293b;">
+          <td style="padding:12px; color:#94a3b8;">${item.data_registro || selectProofDate.value || '-'}</td>
+          <td style="padding:12px; font-size:24px;">🍷</td>
+          <td style="padding:12px;">
+            <div style="font-weight:bold;">${item.nome}</div>
+            <div style="font-size:10px; color:#64748b;">${item.vinculado ? '🔗 Vinculado' : ''}</div>
+          </td>
+          <td style="padding:12px;"><span style="background:#334155; padding:2px 6px; border-radius:4px; font-size:10px;">${item.loja || 'Desconhecida'}</span></td>
+          <td style="padding:12px;">
+            <div style="color:#ef4444; text-decoration:line-through; font-size:10px;">R$ ${item.de || '0,00'}</div>
+            <div style="color:#22c55e; font-weight:900;">R$ ${item.por || '0,00'}</div>
+          </td>
+          <td style="padding:12px;">
+            <button onclick='useProofItem(${JSON.stringify(item).replace(/'/g, "&apos;")})' 
+              style="background:#3b82f6; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; font-size:11px;">
+              USAR NO EDITOR
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      if (itemsToRender.length === 0) {
+        proofTableBody.innerHTML = '<tr><td colspan="6" style="padding:40px; text-align:center; color:#555;">Nenhum produto encontrado.</td></tr>';
+      }
+    }
+
+    // Função global para ser chamada pelo botão na tabela
+    window.useProofItem = (item) => {
+      document.getElementById('inpName').value = item.nome;
+      document.getElementById('inpOld').value = item.de || "";
+      document.getElementById('inpNew').value = "R$ " + (item.por || "");
+
+      syncUpdate();
+      modalPriceProof.classList.remove('open');
+    };
+
+    document.getElementById('btnPriceProof').onclick = () => {
+      modalPriceProof.classList.add('open');
+      loadProofDates();
+    };
+
+    document.getElementById('btnClosePriceProof').onclick = () => modalPriceProof.classList.remove('open');
+
+    selectProofDate.onchange = (e) => {
+      searchProofName.value = ''; // Limpa busca ao trocar data
+      loadProofRecords(e.target.value);
+    };
+
+    let priceProofSearchTimeout;
+    searchProofName.oninput = () => {
+      clearTimeout(priceProofSearchTimeout);
+      priceProofSearchTimeout = setTimeout(() => {
+        // Se tiver termo de busca e não tiver data selecionada, ou se quiser busca global
+        const term = searchProofName.value.trim();
+        if (term.length > 2 && !selectProofDate.value) {
+          renderProofTable(true);
+        } else {
+          renderProofTable(false);
+        }
+      }, 500);
+    };
+
+    window.addEventListener('load', () => {
+      setTimeout(initOrganizer, 500);
+    });
+  </script>
+
+</body>
+
+</html>

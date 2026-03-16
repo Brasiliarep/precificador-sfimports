@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF Stories - Teste Local</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .result {
+            background: #1a1a1a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .error {
+            color: #ff6b6b;
+        }
+        .success {
+            color: #51cf66;
+        }
+        .warning {
+            color: #ffd43b;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .product-card {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-image {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 5px;
+        }
+        .product-name {
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        .product-price {
+            color: #51cf66;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 SF Stories - Teste Local</h1>
+            <p>Servidor rodando em: http://localhost:8080</p>
+            <div id="server-status">
+                <span class="status-indicator status-ok"></span>
+                Servidor Python HTTP ativo
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📡 Teste de API WooCommerce (Direto)</h2>
+            <button class="test-button" onclick="testDirectAPI()">Testar API Direta</button>
+            <div id="direct-api-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 Teste de Catálogo de Produtos</h2>
+            <input type="text" id="search-input" placeholder="Buscar produto..." style="width: 100%; padding: 10px; margin: 10px 0; background: #333; color: white; border: 1px solid #555; border-radius: 5px;">
+            <button class="test-button" onclick="testCatalog()">Carregar Catálogo</button>
+            <div id="catalog-result" class="result"></div>
+            <div id="product-grid" class="grid"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎨 Teste de Templates</h2>
+            <button class="test-button" onclick="testTemplates()">Testar Templates</button>
+            <div id="templates-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 Teste do Editor</h2>
+            <button class="test-button" onclick="testEditor()">Testar Editor</button>
+            <div id="editor-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔗 Links para Teste</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <a href="index.html" target="_blank" class="test-button">📖 Stories Index</a>
+                <a href="editor.html" target="_blank" class="test-button">🎨 Editor</a>
+                <a href="template-picker.html" target="_blank" class="test-button">📄 Template Picker</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuração da API WooCommerce
+        const WC_CONFIG = {
+            url: 'https://sfimportsdf.com.br',
+            ck: 'ck_c8a3cce21212402dd20f851df6b521195936d9e4',
+            cs: 'cs_3d3339b5c3664cdf4c187bb33ee9a4b89849f9e3'
+        };
+
+        let selectedProduct = null;
+        let selectedTemplate = null;
+
+        // Função para fazer requisição CORS
+        async function fetchWithCORS(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    }
+                });
+                return response;
+            } catch (error) {
+                console.error('CORS Error:', error);
+                throw error;
+            }
+        }
+
+        // Teste 1: API Direta
+        async function testDirectAPI() {
+            const result = document.getElementById('direct-api-result');
+            result.innerHTML = '<div class="warning">⏳ Testando API WooCommerce...</div>';
+
+            try {
+                const url = `${WC_CONFIG.url}/wp-json/wc/v3/products?consumer_key=${encodeURIComponent(WC_CONFIG.ck)}&consumer_secret=${encodeURIComponent(WC_CONFIG.cs)}&per_page=5`;
+                
+                const response = await fetchWithCORS(url);
+                const data = await response.json();
+
+                if (response.ok && Array.isArray(data)) {
+                    result.innerHTML = `<div class="success">✅ API Funcionando! ${data.length} produtos encontrados</div>`;
+                    result.innerHTML += `<div class="result">${JSON.stringify(data[0], null, 2)}</div>`;
+                } else {
+                    result.innerHTML = `<div class="error">❌ Erro na API: ${response.status}</div>`;
+                    result.innerHTML += `<div class="result">${JSON.stringify(data, null, 2)}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Erro de conexão: ${error.message}</div>`;
+                result.innerHTML += `<div class="warning">⚠️ Isso pode ser um problema de CORS. O servidor precisa permitir requisições do seu localhost.</div>`;
+            }
+        }
+
+        // Teste 2: Catálogo de Produtos
+        async function testCatalog() {
+            const result = document.getElementById('catalog-result');
+            const grid = document.getElementById('product-grid');
+            const searchTerm = document.getElementById('search-input').value;
+
+            result.innerHTML = '<div class="warning">⏳ Carregando catálogo...</div>';
+            grid.innerHTML = '';
+
+            try {
+                let url = `${WC_CONFIG.url}/wp-json/wc/v3/products?consumer_key=${encodeURIComponent(WC_CONFIG.ck)}&consumer_secret=${encodeURIComponent(WC_CONFIG.cs)}&per_page=20`;
+                
+                if (searchTerm) {
+                    url += `&search=${encodeURIComponent(searchTerm)}`;
+                }
+
+                const response = await fetchWithCORS(url);
+                const data = await response.json();
+
+                if (response.ok && Array.isArray(data)) {
+                    result.innerHTML = `<div class="success">✅ ${data.length} produtos encontrados</div>`;
+                    
+                    // Renderizar produtos
+                    grid.innerHTML = data.map(product => `
+                        <div class="product-card" onclick="selectProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                            <img src="${product.images && product.images[0] ? product.images[0].src : 'https://via.placeholder.com/200x150/333/fff?text=Sem+Imagem'}" alt="${product.name}" class="product-image">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">R$ ${parseFloat(product.price || 0).toFixed(2)}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    result.innerHTML = `<div class="error">❌ Erro ao carregar produtos: ${response.status}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Erro: ${error.message}</div>`;
+            }
+        }
+
+        // Teste 3: Templates
+        function testTemplates() {
+            const result = document.getElementById('templates-result');
+            
+            const templates = [
+                { name: 'SF Imports', file: 'templatesf.png' },
+                { name: 'Otoval', file: 'templateotoval.png' }
+            ];
+
+            result.innerHTML = '<div class="success">✅ Templates disponíveis:</div>';
+            result.innerHTML += templates.map((t, i) => `
+                <div style="margin: 10px 0;">
+                    <button class="test-button" onclick="selectTemplate('${t.file}', '${t.name}')">Selecionar ${t.name}</button>
+                    <span>${t.file}</span>
+                </div>
+            `).join('');
+        }
+
+        // Selecionar template
+        function selectTemplate(file, name) {
+            selectedTemplate = { file, name };
+            localStorage.setItem('sf_template_file', file);
+            
+            alert(`✅ Template selecionado: ${name}\n\nAgora teste o fluxo completo!`);
+        }
+
+        // Teste 4: Editor
+        function testEditor() {
+            const result = document.getElementById('editor-result');
+            
+            result.innerHTML = `
+                <div class="success">✅ Editor pronto para testar</div>
+                <div class="warning">⚠️ Para testar o editor completo:</div>
+                <div>1. Selecione um produto no catálogo acima</div>
+                <div>2. Escolha um template</div>
+                <div>3. Abra o editor.html</div>
+            `;
+        }
+
+        // Selecionar produto
+        function selectProduct(product) {
+            selectedProduct = product;
+            localStorage.setItem('sf_pending_product', JSON.stringify(product));
+            
+            // Atualizar UI
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.border = card.onclick && card.onclick.toString().includes(product.id) ? '2px solid #51cf66' : 'none';
+            });
+            
+            alert(`✅ Produto selecionado: ${product.name}\n\nAgora escolha um template abaixo!`);
+        }
+
+        // Teste automático ao carregar
+        window.addEventListener('load', () => {
+            console.log('🚀 SF Stories - Teste Local carregado');
+            console.log('📡 Configuração WC:', WC_CONFIG);
+            console.log('🌐 Servidor: http://localhost:8080');
+        });
+    </script>
+</body>
+</html>

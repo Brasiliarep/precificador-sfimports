@@ -1,0 +1,224 @@
+[
+  {
+    "loja": "GL",
+    "nome": "ESPUMANTE FREIXENET CARTA NEVADA 1,5L",
+    "de": 109.9,
+    "por": 89.9,
+    "status": "vermelho",
+    "matchRating": 0.37254901960784315,
+    "vinculado": null
+  },
+  {
+    "loja": "GL",
+    "nome": "ESPUMANTE CHANDON BRUT 1,5L",
+    "de": 179.9,
+    "por": 139.9,
+    "status": "amarelo",
+    "matchRating": 0.4523809523809524,
+    "vinculado": null
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO LAS PERDICES",
+    "de": 49.9,
+    "por": 34.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-301",
+      "supplierName": "LAS PERDICES MALBEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO FELINO MALBEC",
+    "de": 129.9,
+    "por": 89.9,
+    "status": "amarelo",
+    "matchRating": 0.5652173913043478,
+    "vinculado": {
+      "rowId": "produto-56",
+      "supplierName": "VINHO TINTO ANUBIS MALBEC"
+    }
+  },
+  {
+    "loja": "NS",
+    "nome": "VINHO FRANCÊS ROSÉ PISCINE",
+    "de": 74.9,
+    "por": 64.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-136",
+      "supplierName": "VINHO ROSE PISCINE"
+    }
+  },
+  {
+    "loja": "NS",
+    "nome": "VINHO PORTUGUÊS TAPADA DO CUNHA TINTO",
+    "de": 49.9,
+    "por": 27.99,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-439",
+      "supplierName": "VINHO TT TAPADA DA CUNHA"
+    }
+  },
+  {
+    "loja": "NS",
+    "nome": "DEMI PANACHÊ",
+    "de": 29.9,
+    "por": 16.99,
+    "status": "vermelho",
+    "matchRating": 0.3125,
+    "vinculado": {
+      "rowId": "produto-522",
+      "supplierName": "ESPUMANTE CHANDON DEMI SEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO PORTUGUÊS JULIA FLORISTA",
+    "de": 40.9,
+    "por": 32.9,
+    "status": "amarelo",
+    "matchRating": 0.7719298245614035,
+    "vinculado": {
+      "rowId": "produto-116",
+      "supplierName": "VINHO TINTO JULIA FLORISTA PORTUGUES"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO CASAS DEL TOQUR RESERVA",
+    "de": 59.9,
+    "por": 39.99,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-249",
+      "supplierName": "VINHO TT CASAS DEL TOQUI RESERVA CARMENERE, CABERNET SAUVIGNON OU MERLOT"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO CHAC CHAC RESERVA",
+    "de": 59.9,
+    "por": 39.99,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-72",
+      "supplierName": "VINHO TINTO CHAC CHAC RESERVA MALBEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO AMERICANO APOTHIC RED",
+    "de": 139.9,
+    "por": 79.9,
+    "status": "amarelo",
+    "matchRating": 0.49056603773584906,
+    "vinculado": {
+      "rowId": "produto-178",
+      "supplierName": "VINHO TT APOTHIC CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO AMERICANO APOTHIC CABERNET SAUVIGNON",
+    "de": 99.9,
+    "por": 59.9,
+    "status": "amarelo",
+    "matchRating": 0.8059701492537313,
+    "vinculado": {
+      "rowId": "produto-178",
+      "supplierName": "VINHO TT APOTHIC CABERNET SAUVIGNON"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO PORTUGUÊS VERDE ESPORÃO BICO AMARELO",
+    "de": 89.9,
+    "por": 64.9,
+    "status": "amarelo",
+    "matchRating": 0.5263157894736842,
+    "vinculado": {
+      "rowId": "produto-456",
+      "supplierName": "VINHO BCO ESPORÃO RESERVA"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO LAS PERDICES RIESLING",
+    "de": 70.9,
+    "por": 59,
+    "status": "amarelo",
+    "matchRating": 0.6774193548387096,
+    "vinculado": {
+      "rowId": "produto-343",
+      "supplierName": "VINHO LAS PERDICES RESERVA ALBARINO"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO SALENTEIN NUMINA MALBEC OU CHARDONNAY",
+    "de": 169.9,
+    "por": 139.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-243",
+      "supplierName": "VINHO TT SALENTEIN NUMINA MALBEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO ARGENTINO FELINO MALBEC",
+    "de": 129.9,
+    "por": 99.9,
+    "status": "amarelo",
+    "matchRating": 0.5652173913043478,
+    "vinculado": {
+      "rowId": "produto-56",
+      "supplierName": "VINHO TINTO ANUBIS MALBEC"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "WHISKY OLD PARR 12 ANOS 1 LITRO",
+    "de": 169.9,
+    "por": 139.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-540",
+      "supplierName": "WHISKY GRAND OLD PARR 12 ANOS 1 LITRO"
+    }
+  },
+  {
+    "loja": "CE",
+    "nome": "VINHO CHILENO VIK A SUMMER RED",
+    "de": 109.9,
+    "por": 99.9,
+    "status": "verde",
+    "matchRating": 1,
+    "vinculado": {
+      "rowId": "produto-251",
+      "supplierName": "VIK “A” CARMENERE"
+    }
+  },
+  {
+    "loja": "NS",
+    "nome": "DEMI PANACHÊ 600ML",
+    "de": 29.9,
+    "por": 16.99,
+    "status": "vermelho",
+    "matchRating": 0.2857142857142857,
+    "vinculado": {
+      "rowId": "produto-591",
+      "supplierName": "CACHAÇA ORIZONA GOLD BLACK 700 ML"
+    }
+  }
+]

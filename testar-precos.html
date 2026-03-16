@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Preços - Catálogo SF Imports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .produto {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .preco-original {
+            color: #666;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+        .preco-atual {
+            color: #e74c3c;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .diferente {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+        }
+        .igual {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .estatisticas {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 TESTE DE PREÇOS - CATÁLOGO SF IMPORTS</h1>
+        
+        <div class="estatisticas">
+            <h3>📊 ESTATÍSTICAS</h3>
+            <div id="stats">
+                <p>Carregando...</p>
+            </div>
+        </div>
+        
+        <button onclick="carregarPrecos()">🔄 Carregar Preços do JSON</button>
+        <button onclick="compararComCatalogo()">🔍 Comparar com Catálogo</button>
+        <button onclick="limparCache()">🧹 Limpar Cache</button>
+        
+        <h2>📦 PREÇOS ENCONTRADOS:</h2>
+        <div id="produtos-container">
+            <p>Clique em "Carregar Preços" para verificar...</p>
+        </div>
+        
+        <h2>🌐 COMPARAÇÃO COM CATÁLOGO:</h2>
+        <div id="comparacao-container">
+            <p>Clique em "Comparar com Catálogo" para verificar...</p>
+        </div>
+    </div>
+
+    <script>
+        let produtosJSON = [];
+        let produtosCatalogo = [];
+
+        function carregarPrecos() {
+            console.log('🔄 Carregando preços do JSON...');
+            
+            fetch('/catalogo-produtos.json?' + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    produtosJSON = data;
+                    console.log('✅ Produtos carregados:', data.length);
+                    
+                    // Calcular estatísticas
+                    const precos = data.map(p => p.preco);
+                    const stats = {
+                        total: data.length,
+                        preco_min: Math.min(...precos),
+                        preco_max: Math.max(...precos),
+                        preco_medio: (precos.reduce((a, b) => a + b, 0) / precos.length).toFixed(2),
+                        precos_unicos: [...new Set(precos)].length
+                    };
+                    
+                    // Mostrar estatísticas
+                    document.getElementById('stats').innerHTML = `
+                        <p><strong>Total de produtos:</strong> ${stats.total}</p>
+                        <p><strong>Preço mínimo:</strong> R$ ${stats.preco_min.toFixed(2)}</p>
+                        <p><strong>Preço máximo:</strong> R$ ${stats.preco_max.toFixed(2)}</p>
+                        <p><strong>Preço médio:</strong> R$ ${stats.preco_medio}</p>
+                        <p><strong>Preços únicos:</strong> ${stats.precos_unicos}</p>
+                        <p><strong>Preços repetidos:</strong> ${stats.total - stats.precos_unicos}</p>
+                    `;
+                    
+                    // Mostrar produtos
+                    const container = document.getElementById('produtos-container');
+                    container.innerHTML = data.slice(0, 10).map(produto => `
+                        <div class="produto">
+                            <strong>ID ${produto.id}:</strong> ${produto.nome}<br>
+                            <span class="preco-atual">R$ ${produto.preco.toFixed(2)}</span>
+                            ${produto.frete_gratis ? ' 🚚 Frete Grátis' : ''}
+                            ${produto.destaque ? ' ⭐ Destaque' : ''}
+                        </div>
+                    `).join('');
+                    
+                    if (data.length > 10) {
+                        container.innerHTML += `<p><em>... e mais ${data.length - 10} produtos</em></p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Erro:', error);
+                    document.getElementById('produtos-container').innerHTML = 
+                        `<p style="color: red;"><strong>❌ Erro ao carregar:</strong> ${error.message}</p>`;
+                });
+        }
+
+        function compararComCatalogo() {
+            console.log('🔍 Comparando com catálogo...');
+            
+            // Abrir catálogo em iframe para comparar
+            const iframe = document.createElement('iframe');
+            iframe.src = '/catalogo.html?' + new Date().getTime();
+            iframe.style.width = '100%';
+            iframe.style.height = '500px';
+            iframe.style.border = '1px solid #ddd';
+            
+            const container = document.getElementById('comparacao-container');
+            container.innerHTML = '<h3>🌐 CATÁLOGO CARREGADO:</h3>';
+            container.appendChild(iframe);
+            
+            // Aguardar carregamento para analisar
+            iframe.onload = function() {
+                setTimeout(() => {
+                    try {
+                        const iframeDoc = iframe.contentDocument;
+                        const produtos = iframeDoc.querySelectorAll('.produto-card');
+                        
+                        console.log(`📦 Encontrados ${produtos.length} produtos no catálogo`);
+                        
+                        // Comparar preços
+                        const comparacao = [];
+                        produtos.forEach((card, index) => {
+                            if (index < produtosJSON.length) {
+                                const precoElement = card.querySelector('.preco-por');
+                                const precoCatalogo = precoElement ? 
+                                    parseFloat(precoElement.textContent.replace('R$ ', '')) : 0;
+                                const precoJSON = produtosJSON[index].preco;
+                                
+                                comparacao.push({
+                                    id: produtosJSON[index].id,
+                                    nome: produtosJSON[index].nome,
+                                    preco_json: precoJSON,
+                                    preco_catalogo: precoCatalogo,
+                                    diferenca: precoJSON - precoCatalogo,
+                                    igual: precoJSON === precoCatalogo
+                                });
+                            }
+                        });
+                        
+                        // Mostrar comparação
+                        container.innerHTML += '<h3>📊 COMPARAÇÃO DE PREÇOS:</h3>';
+                        container.innerHTML += comparacao.slice(0, 5).map(item => `
+                            <div class="produto ${item.igual ? 'igual' : 'diferente'}">
+                                <strong>ID ${item.id}:</strong> ${item.nome}<br>
+                                <span class="preco-original">JSON: R$ ${item.preco_json.toFixed(2)}</span><br>
+                                <span class="preco-atual">Catálogo: R$ ${item.preco_catalogo.toFixed(2)}</span><br>
+                                ${item.igual ? 
+                                    '<span style="color: green;">✅ PREÇOS IGUAIS</span>' : 
+                                    `<span style="color: red;">❌ DIFERENÇA: R$ ${item.diferenca.toFixed(2)}</span>`
+                                }
+                            </div>
+                        `).join('');
+                        
+                    } catch (error) {
+                        console.error('❌ Erro ao analisar catálogo:', error);
+                        container.innerHTML += '<p style="color: red;">❌ Não foi possível analisar o catálogo (pode ser bloqueio de iframe)</p>';
+                    }
+                }, 2000);
+            };
+        }
+
+        function limparCache() {
+            console.log('🧹 Limpando cache...');
+            
+            // Limpar todos os caches relacionados
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Forçar reload
+            window.location.reload(true);
+        }
+
+        // Carregar automaticamente
+        window.onload = function() {
+            carregarPrecos();
+        };
+    </script>
+</body>
+</html>

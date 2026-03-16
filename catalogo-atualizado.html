@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="SF Imports - Adega Digital">
+    <meta property="og:image" content="https://sfimportsdf.com.br/wp-content/uploads/2025/11/b8850035-e961-49db-a0ff-dfbfc7f52ddc-2.png">
+    <title>SF Imports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; --bg: #121212; --text: #fff; --card: #1E1E1E; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 100px; margin: 0; }
+        
+        .top-banner {
+            background: linear-gradient(90deg, #b91d1d, #c0392b);
+            color: #fff; text-align: center; padding: 8px 10px; font-size: 12px; font-weight: bold;
+            position: sticky; top: 0; z-index: 101; box-shadow: 0 2px 5px rgba(0,0,0,0.3); line-height: 1.4;
+        }
+        header { background: #000; padding: 10px 15px; position: sticky; top: 32px; z-index: 100; border-bottom: 1px solid #333; }
+        .header-content { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+        .logo-img { height: 45px; width: auto; object-fit: contain; }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        .zap-btn { text-decoration: none; color: var(--gold); border: 1px solid var(--gold); padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+        .cart-icon { position: relative; cursor: pointer; color: #fff; font-size: 24px; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: #e74c3c; color: white; font-size: 10px; font-weight: bold; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+
+        .search-container { max-width: 1200px; margin: 15px auto 5px auto; padding: 0 10px; }
+        .search-input { width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid #333; background: #222; color: #fff; font-size: 16px; outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: var(--gold); background: #2a2a2a; }
+
+        .filter-container { max-width: 1200px; margin: 10px auto 20px auto; padding: 0 10px; }
+        .main-filters { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 15px; }
+        .btn-action { flex: 1; min-width: 140px; padding: 10px; background: #222; color: #fff; border-radius: 8px; border: 1px solid #333; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-action.active { background: var(--gold); color: #000; border-color: var(--gold); }
+        .cat-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .cat-btn { background: #333; color: #bbb; border: none; padding: 8px 16px; border-radius: 20px; white-space: nowrap; font-size: 13px; cursor: pointer; flex-shrink: 0; }
+        .cat-btn.active { background: #fff; color: #000; font-weight: bold; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 10px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--card); border-radius: 8px; overflow: hidden; border: 1px solid #333; position: relative; cursor: pointer; transition: transform 0.1s; }
+        .card:active { transform: scale(0.98); }
+        .badge { position: absolute; top: 5px; left: 5px; color: white; font-size: 10px; padding: 3px 6px; border-radius: 4px; font-weight: bold; z-index: 2; }
+        .badge-promo { background: #e74c3c; }
+        .card-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #252525; display: block; }
+        .card-body { padding: 12px 10px; }
+        .cat-tag { font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .title { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #eee; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .price-box { display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap; }
+        .price-de { color: #888; text-decoration: line-through; font-size: 11px; }
+        .price-por { color: var(--gold); font-weight: bold; font-size: 15px; }
+        .btn-comprar { width: 100%; margin-top: 8px; padding: 8px; background: var(--gold); color: #000; border: none; border-radius: 6px; font-weight: bold; font-size: 12px; cursor: pointer; transition: 0.2s; }
+        .btn-comprar:hover { background: #b8941f; }
+
+        .loading, .error { text-align: center; padding: 40px; }
+        .loading { color: #aaa; }
+        .error { color: #e74c3c; }
+        .ultima-atualizacao { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+            .header-content { padding: 0 5px; }
+            .logo-img { height: 35px; }
+            .search-input { font-size: 14px; padding: 10px 15px; }
+            .btn-action { font-size: 11px; min-width: 120px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        🚚 FRETE GRÁTIS ACIMA DE R$ 150,00 📅 Pedidos até Quinta ➔ Entrega no Sábado
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <img src="https://sfimportsdf.com.br/wp-content/uploads/2024/01/cropped-LOGO-SF-IMPORTS-1-scaled-1-192x192.jpg" alt="SF Imports" class="logo-img">
+            <div class="header-actions">
+                <a href="https://wa.me/5561998684666" class="zap-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> (61) 99868-4666
+                </a>
+                <div class="cart-icon" onclick="alert('Carrinho em desenvolvimento!')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="🔍 Buscar produtos..." id="search-input" onkeyup="buscarProdutos()">
+    </div>
+
+    <div class="filter-container">
+        <div class="main-filters">
+            <button class="btn-action active" onclick="filtrar('todos')">Todos</button>
+            <button class="btn-action" onclick="filtrar('promo')">Promoções</button>
+            <button class="btn-action" onclick="filtrar('frete-gratis')">Frete Grátis</button>
+        </div>
+        <div class="cat-scroll" id="categorias-container">
+            <!-- Categorias serão carregadas dinamicamente -->
+        </div>
+    </div>
+
+    <div class="loading" id="loading">
+        <i class="fas fa-spinner fa-spin"></i> Carregando produtos...
+    </div>
+    
+    <div class="error" id="error" style="display: none;">
+        <i class="fas fa-exclamation-triangle"></i> Erro ao carregar produtos. Tente novamente.
+    </div>
+    
+    <div class="grid" id="lista-produtos"></div>
+    
+    <div class="ultima-atualizacao" id="ultima-atualizacao">
+        Última atualização: Carregando...
+    </div>
+
+    <script>
+        let produtos = [];
+        let produtosFiltrados = [];
+        let filtroAtual = 'todos';
+        let buscaAtual = '';
+
+        // Função para carregar produtos
+        function carregarProdutos() {
+            console.log('📦 Carregando produtos...');
+            
+            // Mostrar loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('lista-produtos').innerHTML = '';
+            
+            fetch('/catalogo-produtos.json?' + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao carregar produtos');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('✅ Produtos carregados:', data.length);
+                    
+                    produtos = data;
+                    produtosFiltrados = data;
+                    
+                    // Esconder loading
+                    document.getElementById('loading').style.display = 'none';
+                    
+                    // Atualizar data da última atualização
+                    const agora = new Date();
+                    document.getElementById('ultima-atualizacao').textContent = 
+                        agora.toLocaleString('pt-BR');
+                    
+                    // Carregar categorias
+                    carregarCategorias();
+                    
+                    // Renderizar produtos
+                    renderizarProdutos();
+                    
+                    console.log('✅ Produtos renderizados');
+                })
+                .catch(error => {
+                    console.error('❌ Erro ao carregar produtos:', error);
+                    
+                    // Esconder loading e mostrar erro
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('error').style.display = 'block';
+                });
+        }
+
+        function carregarCategorias() {
+            const categorias = [...new Set(produtos.map(p => p.categoria || 'geral'))];
+            const container = document.getElementById('categorias-container');
+            
+            container.innerHTML = `
+                <button class="cat-btn active" onclick="filtrarCategoria('todos')">Todos</button>
+                ${categorias.map(cat => 
+                    `<button class="cat-btn" onclick="filtrarCategoria('${cat}')">${cat}</button>`
+                ).join('')}
+            `;
+        }
+
+        function renderizarProdutos() {
+            const container = document.getElementById('lista-produtos');
+            container.innerHTML = '';
+            
+            produtosFiltrados.forEach(produto => {
+                const html = `
+                    <div class="card">
+                        ${produto.destaque ? '<div class="badge badge-promo">PROMOÇÃO</div>' : ''}
+                        ${produto.imagem ? 
+                            `<img src="${produto.imagem}" alt="${produto.nome}" />` : 
+                            '<div style="height: 200px; background: #333; display: flex; align-items: center; justify-content: center; color: #999;">Sem imagem</div>'
+                        }
+                        <div class="card-body">
+                            <span class="cat-tag">${produto.categoria || 'geral'}</span>
+                            <h3 class="title">${produto.nome}</h3>
+                            <div class="price-box">
+                                <span class="price-por">R$ ${produto.preco.toFixed(2)}</span>
+                            </div>
+                            <button class="btn-comprar" onclick="window.open('https://wa.me/5561998684666?text=Tenho interesse no produto: ${encodeURIComponent(produto.nome)} - R$ ${produto.preco.toFixed(2)}', '_blank')">
+                                Comprar
+                            </button>
+                        </div>
+                    `;
+                container.innerHTML += html;
+            });
+        }
+
+        function filtrar(tipo) {
+            filtroAtual = tipo;
+            
+            // Atualizar botões
+            document.querySelectorAll('.btn-action').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            aplicarFiltros();
+        }
+
+        function filtrarCategoria(categoria) {
+            // Atualizar botões de categoria
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            aplicarFiltros();
+        }
+
+        function buscarProdutos() {
+            buscaAtual = document.getElementById('search-input').value.toLowerCase();
+            aplicarFiltros();
+        }
+
+        function aplicarFiltros() {
+            produtosFiltrados = produtos.filter(produto => {
+                // Filtro de busca
+                const matchBusca = produto.nome.toLowerCase().includes(buscaAtual);
+                
+                // Filtro principal
+                let matchFiltro = true;
+                if (filtroAtual === 'promo') {
+                    matchFiltro = produto.destaque;
+                } else if (filtroAtual === 'frete-gratis') {
+                    matchFiltro = produto.frete_gratis;
+                }
+                
+                return matchBusca && matchFiltro;
+            });
+            
+            renderizarProdutos();
+        }
+
+        // Carregar produtos ao iniciar
+        document.addEventListener('DOMContentLoaded', carregarProdutos);
+    </script>
+</body>
+</html>

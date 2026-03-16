@@ -1,0 +1,5 @@
+{
+  "name": "Precificador SFIMPORTS",
+  "description": "A customized AI tool to compare supplier prices against your store prices via screenshots or text, identifying negative margins instantly.",
+  "requestFramePermissions": []
+}
