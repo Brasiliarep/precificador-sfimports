@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-03-16T15:41:51.952Z",
+  "updatedAt": "2026-03-17T00:19:55.803Z",
   "fontes": [
     {
       "fonte": "vivino",
       "status": "parcial",
-      "ultimaAtualizacao": "2026-03-16T15:06:35.219Z",
+      "ultimaAtualizacao": "2026-03-17T00:19:55.803Z",
       "totalProcessados": 1,
       "alteracoesPreco": 0,
       "erros": 0,
       "semMatch": 1,
-      "resumo": "Vinho não encontrado: WHISKEY EAGLE RARE",
+      "resumo": "Vinho não encontrado: VINHO TINTO GREY PINOT NOIR",
       "itens": []
     },
     {
@@ -26,8 +26,8 @@
     {
       "fonte": "milao",
       "status": "ok",
-      "ultimaAtualizacao": "2026-03-16T15:41:51.952Z",
-      "totalProcessados": 1343,
+      "ultimaAtualizacao": "2026-03-16T17:45:39.466Z",
+      "totalProcessados": 1349,
       "alteracoesPreco": 0,
       "erros": 0,
       "semMatch": 0,

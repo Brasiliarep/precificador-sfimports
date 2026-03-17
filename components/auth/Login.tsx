@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { authService } from '../../src/services/authService';
 
 interface LoginProps {
     onLogin: () => void;
 }
 
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
+    const [email, setEmail] = useState('admin@sfimports.com.br');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
 
-        // Simulação de delay para efeito premium
-        setTimeout(() => {
-            if (password === 'sf@2026') {
-                localStorage.setItem('sf_auth_session', 'true');
-                onLogin();
+        try {
+            await authService.login(email, password);
+            localStorage.setItem('sf_auth_session', 'true');
+            onLogin();
+        } catch (err: any) {
+            console.error('Erro de login:', err);
+            if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+                setError('Credenciais incorretas. Verifique seu e-mail e senha.');
             } else {
-                setError(true);
-                setIsLoading(false);
-                // Reset error after 2 seconds
-                setTimeout(() => setError(false), 2000);
+                setError('Erro ao conectar com o servidor. Tente novamente.');
             }
-        }, 800);
+            setIsLoading(false);
+            setTimeout(() => setError(null), 4000);
+        }
     };
 
     return (
@@ -44,30 +49,45 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <div>
-                            <label className="block text-xs font-bold text-white/40 uppercase tracking-widest mb-2 ml-1">
-                                Acesso Restrito
-                            </label>
-                            <div className="relative group">
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-white/40 uppercase tracking-widest mb-2 ml-1">
+                                    E-mail de Acesso
+                                </label>
                                 <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Digite sua senha"
-                                    className={`w-full bg-white/5 border ${error ? 'border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-white/10 group-hover:border-white/20'} rounded-xl py-4 px-5 text-white placeholder-white/20 outline-none transition-all focus:bg-white/10 focus:border-purple-500/50`}
-                                    autoFocus
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="exemplo@sfimports.com.br"
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-5 text-white placeholder-white/20 outline-none transition-all focus:bg-white/10 focus:border-purple-500/50"
+                                    required
                                 />
-                                {isLoading && (
-                                    <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                                        <div className="w-5 h-5 border-2 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
-                                    </div>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-white/40 uppercase tracking-widest mb-2 ml-1">
+                                    Senha
+                                </label>
+                                <div className="relative group">
+                                    <input
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="Digite sua senha"
+                                        className={`w-full bg-white/5 border ${error ? 'border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-white/10 group-hover:border-white/20'} rounded-xl py-4 px-5 text-white placeholder-white/20 outline-none transition-all focus:bg-white/10 focus:border-purple-500/50`}
+                                        required
+                                    />
+                                    {isLoading && (
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                                            <div className="w-5 h-5 border-2 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+                                        </div>
+                                    )}
+                                </div>
+                                {error && (
+                                    <p className="text-red-400 text-xs mt-2 ml-1 animate-bounce">
+                                        ⚠️ {error}
+                                    </p>
                                 )}
                             </div>
-                            {error && (
-                                <p className="text-red-400 text-xs mt-2 ml-1 animate-bounce">
-                                    ⚠️ Senha incorreta. Tente novamente.
-                                </p>
-                            )}
                         </div>
 
                         <button
